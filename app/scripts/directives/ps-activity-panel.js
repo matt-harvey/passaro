@@ -13,7 +13,7 @@ angular.module('passaroApp')
       controllerAs: 'activityPanelCtrl',
       templateUrl: 'views/templates/ps-activity-panel.html',
       restrict: 'E',
-      link: function postLink(scope, element, attrs) {
+      link: function postLink(/* scope, element, attrs */) {
       }
     };
   });
