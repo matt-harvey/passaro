@@ -22,5 +22,9 @@ angular.module('passaroApp')
       initializeNewActivity();
     };
 
+    that.removeActivity = function(activityId) {
+      TimeLog.removeActivity(activityId);
+    };
+
     initializeNewActivity();
   });

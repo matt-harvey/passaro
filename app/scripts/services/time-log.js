@@ -30,9 +30,13 @@ angular.module('passaroApp')
 
     that.addActivity = function(activity) {
       $indexedDB.openStore('activities', function(store) {
-        store.insert(activity);
-      }).then(function() {
-        activities.push(activity);
+        store.insert(activity).then(loadActivities);
+      });
+    };
+
+    that.removeActivity = function(activityId) {
+      $indexedDB.openStore('activities', function(store) {
+        store.delete(activityId).then(loadActivities);
       });
     };
 

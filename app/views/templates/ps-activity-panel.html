@@ -22,6 +22,11 @@
         <td>
           {{activity.name}}  <!-- FIXME -->
         </td>
+        <td>
+          <button type="button"
+            class="btn btn-danger pull-right"
+            ng-click="activityPanelCtrl.removeActivity(activity.id)">Remove</button>
+        </td>
       </tr>
     </table>
   </div><!-- panel-body -->
