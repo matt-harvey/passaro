@@ -12,8 +12,6 @@ angular.module('passaroApp')
       controller: 'ActivityPanelCtrl',
       controllerAs: 'activityPanelCtrl',
       templateUrl: 'views/templates/ps-activity-panel.html',
-      restrict: 'E',
-      link: function postLink(/* scope, element, attrs */) {
-      }
+      restrict: 'E'
     };
   });
