@@ -8,7 +8,7 @@
  * Service in the passaroApp.
  */
 angular.module('passaroApp')
-  .service('TimeLog', function($indexedDB) {
+  .service('TimeLog', function($indexedDB, lodash) {
     var that = this;
     var activities;
 
@@ -30,13 +30,19 @@ angular.module('passaroApp')
 
     that.addActivity = function(activity) {
       $indexedDB.openStore('activities', function(store) {
-        store.insert(activity).then(loadActivities);
+        store.insert(activity).then(function(ids) {
+          activities.push(lodash.merge(activity, { id: ids[0] }));
+        });
       });
     };
 
     that.removeActivity = function(activityId) {
       $indexedDB.openStore('activities', function(store) {
-        store.delete(activityId).then(loadActivities);
+        store.delete(activityId).then(function() {
+          lodash.remove(activities, function(activity) {
+            return activity.id === activityId;
+          });
+        });
       });
     };
 

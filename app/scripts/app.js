@@ -13,7 +13,8 @@ angular
     'ngAria',
     'ngRoute',
     'ngSanitize',
-    'indexedDB'
+    'indexedDB',
+    'ngLodash'
   ])
   .config(function($routeProvider, $indexedDBProvider) {
     $routeProvider
