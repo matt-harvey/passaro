@@ -4,12 +4,12 @@
       <div class="input-group">
         <input type="text"
           class="form-control"
-          ng-model="activityPanelCtrl.newActivity.name"
+          ng-model="activitiesCtrl.newActivity.name"
           required>
         <div class="input-group-btn">
           <button type="submit"
             class="btn btn-success"
-            ng-click="activityPanelCtrl.addActivity()"
+            ng-click="activitiesCtrl.addActivity()"
             ng-disabled="!activityForm.$valid">Add</button>
         </div><!-- input-group-btn -->
       </div><!-- input-group -->
@@ -18,14 +18,14 @@
   <div class="panel-body">
     <table class="table">
       <th>Name</th>
-      <tr ng-repeat="activity in activityPanelCtrl.activities()">
+      <tr ng-repeat="activity in activitiesCtrl.activities()">
         <td>
           {{activity.name}}  <!-- FIXME -->
         </td>
         <td>
           <button type="button"
             class="btn btn-danger pull-right"
-            ng-click="activityPanelCtrl.removeActivity(activity.id)">Remove</button>
+            ng-click="activitiesCtrl.removeActivity(activity.id)">Remove</button>
         </td>
       </tr>
     </table>

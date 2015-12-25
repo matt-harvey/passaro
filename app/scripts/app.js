@@ -18,14 +18,10 @@ angular
   ])
   .config(function($routeProvider, $indexedDBProvider) {
     $routeProvider
-      .when('/', {
-        // FIXME This doesn't even exist
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .otherwise({
-        redirectTo: '/'
+      .when('/activities', {
+        templateUrl: 'views/activities.html',
+        controller: 'ActivitiesCtrl',
+        controllerAs: 'activitiesCtrl'
       });
     $indexedDBProvider
       .connection('passaro')

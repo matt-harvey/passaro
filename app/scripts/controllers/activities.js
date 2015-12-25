@@ -2,20 +2,22 @@
 
 /**
  * @ngdoc function
- * @name passaroApp.controller:ActivityPanelCtrl
+ * @name passaroApp.controller:ActivitiesCtrl
  * @description
- * # ActivityPanelCtrl
+ * # ActivitiesCtrl
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('ActivityPanelCtrl', function(TimeLog) {
+  .controller('ActivitiesCtrl', function(TimeLog) {
     var that = this;
 
     var initializeNewActivity = function() {
       that.newActivity = { name: '' }; 
     };
 
-    that.activities = TimeLog.activities;
+    that.activities = function() {
+      return TimeLog.activities();
+    };
 
     that.addActivity = function() {
       TimeLog.addActivity(that.newActivity);
