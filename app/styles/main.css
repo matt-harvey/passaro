@@ -81,3 +81,9 @@ body {
     border-bottom: 0;
   }
 }
+
+
+/* navigation */
+.navbar {
+  border-radius: 0;
+}

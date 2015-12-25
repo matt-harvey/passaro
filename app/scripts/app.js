@@ -16,12 +16,21 @@ angular
     'indexedDB',
     'ngLodash'
   ])
-  .config(function($routeProvider, $indexedDBProvider) {
+  .config(function($routeProvider, $locationProvider, $indexedDBProvider) {
     $routeProvider
+      .when('/stints', {
+        templateUrl: '/views/stints.html'  // TODO Add controller
+      })
       .when('/activities', {
         templateUrl: 'views/activities.html',
         controller: 'ActivitiesCtrl',
         controllerAs: 'activitiesCtrl'
+      })
+      .when('/reports', {
+        templateUrl: 'views/reports.html'  // TODO Add controller
+      })
+      .otherwise({
+        redirectTo: '/stints'
       });
     $indexedDBProvider
       .connection('passaro')
