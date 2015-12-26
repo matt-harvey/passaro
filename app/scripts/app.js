@@ -13,10 +13,10 @@ angular
     'ngAria',
     'ngRoute',
     'ngSanitize',
-    'indexedDB',
-    'ngLodash'
+    'ngLodash',
+    'pouchdb'
   ])
-  .config(function($routeProvider, $locationProvider, $indexedDBProvider) {
+  .config(function($routeProvider) {
     $routeProvider
       .when('/stints', {
         templateUrl: '/views/stints.html'  // TODO Add controller
@@ -31,16 +31,5 @@ angular
       })
       .otherwise({
         redirectTo: '/stints'
-      });
-    $indexedDBProvider
-      .connection('passaro')
-      .upgradeDatabase(1, function(event, db /*, transaction */) {
-        var activitiesStore = db.createObjectStore('activities', {
-          autoIncrement: true,
-          keyPath: 'id'
-        });
-        // FIXME Names should be unique; but need to handle with user-friendly
-        // validation.
-        activitiesStore.createIndex('nameIndex', 'name', { unique: false });
       });
   });

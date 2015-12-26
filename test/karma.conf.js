@@ -28,8 +28,9 @@ module.exports = function(config) {
       'bower_components/angular-aria/angular-aria.js',
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
-      'bower_components/angular-indexedDB/angular-indexed-db.js',
       'bower_components/ng-lodash/build/ng-lodash.js',
+      'bower_components/pouchdb/dist/pouchdb.js',
+      'bower_components/angular-pouchdb/angular-pouchdb.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
