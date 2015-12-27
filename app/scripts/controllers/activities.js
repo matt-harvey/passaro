@@ -9,10 +9,7 @@
  */
 angular.module('passaroApp')
   .controller('ActivitiesCtrl', function(TimeLog) {
-    // TODO Form validation / resetting code both here and in the HTML could use
-    // some DRYing up.
     var that = this;
-    var formSubmitted = false;
 
     var initializeNewActivity = function() {
       that.newActivity = { name: '' }; 
@@ -20,8 +17,8 @@ angular.module('passaroApp')
 
     var resetForm = function() {
       initializeNewActivity();
-      that.form.name.$touched = false;
-      formSubmitted = false;
+      that.form.$setPristine();
+      that.form.$setUntouched();
     };
 
     that.activities = function() {
@@ -29,16 +26,10 @@ angular.module('passaroApp')
     };
 
     that.addActivity = function() {
-      formSubmitted = true;
       if (that.form.$valid) {
         TimeLog.addActivity(that.newActivity);
         resetForm();
       }
-    };
-
-    that.showErrors = function(fieldName) {
-      var field = that.form[fieldName];
-      return (formSubmitted || field.$touched) && field.$invalid;
     };
 
     that.removeActivity = function(activity) {

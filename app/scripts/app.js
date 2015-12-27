@@ -15,7 +15,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngLodash',
-    'pouchdb'
+    'pouchdb',
+    'valdr'
   ])
   .config(function($routeProvider) {
     $routeProvider
@@ -33,4 +34,18 @@ angular
       .otherwise({
         redirectTo: '/stints'
       });
+  }).config(function(valdrProvider) {
+    valdrProvider.addConstraints({
+      Activity: {
+        name: {
+          required: {
+            message: 'Name is required'
+          }
+        }
+      }
+    });
+  }).config(function(valdrMessageProvider) {
+    valdrMessageProvider.setTemplate(
+      '<div class="help-block" role="alert">{{violation.message}}</div>'
+    );
   });

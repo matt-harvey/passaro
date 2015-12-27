@@ -3,23 +3,18 @@
     <form role="form"
       name="ctrl.form"
       ng-submit="ctrl.addActivity()"
-      novalidate>
-      <div ng-class="{ 'has-error': ctrl.showErrors('name') }">
+      novalidate
+      autocomplete="off"
+      valdr-type="Activity">
+      <div valdr-form-group>
         <div class="input-group">
           <input type="text" name="name"
             class="form-control"
-            ng-model="ctrl.newActivity.name"
-            required>
+            ng-model="ctrl.newActivity.name">
           <div class="input-group-btn">
             <button type="submit" class="btn btn-success">Add</button>
           </div><!-- input-group-btn -->
         </div><!-- input-group -->
-        <div class="help-block"
-          role="alert"
-          ng-messages="ctrl.form.name.$error"
-          ng-show="ctrl.showErrors('name')">
-          <p ng-message="required">This field is required</p>
-        </div><!-- help-block -->
       </div>
     </form>
   </div><!-- panel-body -->

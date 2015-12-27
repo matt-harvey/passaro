@@ -83,6 +83,20 @@ body {
 }
 
 /* navigation */
+
 .navbar {
   border-radius: 0;
+}
+
+/* forms */
+
+/* TODO Need to get the entire input group to have bootstrap error class if and only
+ * if error message is shown. */
+[valdr-message] {
+  display: none;
+  color: #c9302c;
+}
+.ng-invalid.ng-touched[valdr-message],
+.ng-submitted .ng-invalid[valdr-message] {
+  display: inline;
 }
