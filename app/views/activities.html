@@ -1,16 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <form role="form"
-      name="ctrl.form"
-      ng-submit="ctrl.addActivity()"
-      novalidate
-      autocomplete="off"
-      valdr-type="Activity">
-      <div valdr-form-group>
+    <form role="form" name="ctrl.form" ng-submit="ctrl.addActivity()" novalidate
+      autocomplete="off" valdr-type="Activity">
+      <div valdr-form-group ng-class="{ 'has-error': ctrl.showError('name') }">
         <div class="input-group">
-          <input type="text" name="name"
-            class="form-control"
-            ng-model="ctrl.newActivity.name">
+          <input type="text" name="name" class="form-control" ng-model="ctrl.newActivity.name">
           <div class="input-group-btn">
             <button type="submit" class="btn btn-success">Add</button>
           </div><!-- input-group-btn -->
@@ -27,9 +21,10 @@
         <td>
           <!-- FIXME The "Remove" button should have a symbol rather than the
                word "Remove", and should have a confirmation dialog. -->
-          <button type="button"
-            class="btn btn-danger pull-right"
-            ng-click="ctrl.removeActivity(activity)">Remove</button>
+          <button type="button" class="btn btn-danger pull-right"
+            ng-click="ctrl.removeActivity(activity)">
+            Remove
+          </button>
         </td>
       </tr>
     </table>

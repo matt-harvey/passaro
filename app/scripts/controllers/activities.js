@@ -36,5 +36,10 @@ angular.module('passaroApp')
       TimeLog.removeActivity(activity);
     };
 
+    that.showError = function(fieldName) {
+      var field = that.form[fieldName];
+      return field.$invalid && (field.$touched || that.form.$submitted);
+    };
+
     initializeNewActivity();
   });
