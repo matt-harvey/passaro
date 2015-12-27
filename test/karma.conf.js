@@ -31,6 +31,7 @@ module.exports = function(config) {
       'bower_components/ng-lodash/build/ng-lodash.js',
       'bower_components/pouchdb/dist/pouchdb.js',
       'bower_components/angular-pouchdb/angular-pouchdb.js',
+      'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

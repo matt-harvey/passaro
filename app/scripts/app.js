@@ -11,6 +11,7 @@
 angular
   .module('passaroApp', [
     'ngAria',
+    'ngMessages',
     'ngRoute',
     'ngSanitize',
     'ngLodash',
@@ -24,7 +25,7 @@ angular
       .when('/activities', {
         templateUrl: 'views/activities.html',
         controller: 'ActivitiesCtrl',
-        controllerAs: 'activitiesCtrl'
+        controllerAs: 'ctrl'
       })
       .when('/reports', {
         templateUrl: 'views/reports.html'  // TODO Add controller

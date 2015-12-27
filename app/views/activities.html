@@ -1,32 +1,40 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <form role="form" name="activityForm" novalidate>
-      <div class="input-group">
-        <input type="text"
-          class="form-control"
-          ng-model="activitiesCtrl.newActivity.name"
-          required>
-        <div class="input-group-btn">
-          <button type="submit"
-            class="btn btn-success"
-            ng-click="activitiesCtrl.addActivity()"
-            ng-disabled="!activityForm.$valid">Add</button>
-        </div><!-- input-group-btn -->
-      </div><!-- input-group -->
+    <form role="form"
+      name="ctrl.form"
+      ng-submit="ctrl.addActivity()"
+      novalidate>
+      <div ng-class="{ 'has-error': ctrl.showErrors('name') }">
+        <div class="input-group">
+          <input type="text" name="name"
+            class="form-control"
+            ng-model="ctrl.newActivity.name"
+            required>
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-success">Add</button>
+          </div><!-- input-group-btn -->
+        </div><!-- input-group -->
+        <div class="help-block"
+          role="alert"
+          ng-messages="ctrl.form.name.$error"
+          ng-show="ctrl.showErrors('name')">
+          <p ng-message="required">This field is required</p>
+        </div><!-- help-block -->
+      </div>
     </form>
   </div><!-- panel-body -->
   <div class="panel-body">
     <table class="table">
       <th>Name</th>
       <th></th>
-      <tr ng-repeat="activity in activitiesCtrl.activities()">
+      <tr ng-repeat="activity in ctrl.activities()">
         <td>{{activity.name}}</td>
         <td>
           <!-- FIXME The "Remove" button should have a symbol rather than the
                word "Remove", and should have a confirmation dialog. -->
           <button type="button"
             class="btn btn-danger pull-right"
-            ng-click="activitiesCtrl.removeActivity(activity)">Remove</button>
+            ng-click="ctrl.removeActivity(activity)">Remove</button>
         </td>
       </tr>
     </table>
