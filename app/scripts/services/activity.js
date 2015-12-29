@@ -35,7 +35,7 @@ angular.module('passaroApp')
             return new Activity(row.doc);
           });
         }).catch(function(error) {
-          // TODO Is there anything more useful we can do here?
+          // TODO Is there anything more useful we can do here? Should we throw?
           $log.error(error);
         });
         loaded = true;
@@ -65,6 +65,24 @@ angular.module('passaroApp')
     Activity.all = function() {
       load();
       return activities;
+    };
+
+    /**
+     * @param query e.g. { name: 'admin }
+     * @return true if there is an activity with the attributes in query, otherwise false.
+     */
+    Activity.exists = function(query) {
+      // TODO This should use a proper PouchDB query.
+      return typeof Activity.findWhere(query) !== 'undefined';
+    };
+
+    /**
+     * @param query object e.g. { name: 'admin' }
+     * @return the first Activity found that matches query.
+     */
+    Activity.findWhere = function(query) {
+      // TODO This should use a proper PouchDB query.
+      return lodash.findWhere(Activity.all(), query);
     };
 
     /**
@@ -101,12 +119,12 @@ angular.module('passaroApp')
         if (result.ok) {
           markStale();
         } else {
-          // TODO Is there anything more useful we can do here?
+          // TODO Is there anything more useful we can do here? Should we throw?
           $log.error('Could not save activity.');
           revert();
         }
       }).catch(function(error) {
-        // TODO Is there anything more useful we can do here?
+        // TODO Is there anything more useful we can do here? Should we throw?
         $log.error(error);
         revert();
       });
@@ -121,11 +139,11 @@ angular.module('passaroApp')
         if (result.ok) {
           markStale();
         } else {
-          // TODO Is there anything more useful we can do here?
+          // TODO Is there anything more useful we can do here? Should we throw?
           $log.error('Could not remove activity.');
         }
       }).catch(function(error) {
-        // TODO Is there anything more useful we can do here?
+        // TODO Is there anything more useful we can do here? Should we throw?
         $log.error(error);
       });
     };
