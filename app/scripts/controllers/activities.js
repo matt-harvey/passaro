@@ -8,7 +8,7 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('ActivitiesCtrl', function(Activity) {
+  .controller('ActivitiesCtrl', function($window, Activity) {
     var ctrl = this;
 
     var initializeNewActivity = function() {
@@ -33,7 +33,9 @@ angular.module('passaroApp')
     };
 
     ctrl.removeActivity = function(activity) {
-      activity.remove();
+      if ($window.confirm('Are you sure you want to delete the activity "' + activity.name + '"?')) {
+        activity.remove();
+      }
     };
 
     ctrl.showError = function(fieldName) {

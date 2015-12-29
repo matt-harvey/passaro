@@ -19,8 +19,7 @@
       <tr ng-repeat="activity in ctrl.activities()">
         <td>{{activity.name}}</td>
         <td>
-          <!-- FIXME The "Remove" button should have a symbol rather than the
-               word "Remove", and should have a confirmation dialog. -->
+          <!-- TODO The "Remove" button should have a symbol rather than the word "Remove" -->
           <button type="button" class="btn btn-danger pull-right"
             ng-click="ctrl.removeActivity(activity)">
             Remove
