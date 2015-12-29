@@ -8,37 +8,37 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('ActivitiesCtrl', function(TimeLog) {
-    var that = this;
+  .controller('ActivitiesCtrl', function(Activity) {
+    var ctrl = this;
 
     var initializeNewActivity = function() {
-      that.newActivity = { name: '' }; 
+      ctrl.newActivity = new Activity();
     };
 
     var resetForm = function() {
       initializeNewActivity();
-      that.form.$setPristine();
-      that.form.$setUntouched();
+      ctrl.form.$setPristine();
+      ctrl.form.$setUntouched();
     };
 
-    that.activities = function() {
-      return TimeLog.activities();
+    ctrl.activities = function() {
+      return Activity.all();
     };
 
-    that.addActivity = function() {
-      if (that.form.$valid) {
-        TimeLog.addActivity(that.newActivity);
+    ctrl.addActivity = function() {
+      if (ctrl.form.$valid) {
+        ctrl.newActivity.save();
         resetForm();
       }
     };
 
-    that.removeActivity = function(activity) {
-      TimeLog.removeActivity(activity);
+    ctrl.removeActivity = function(activity) {
+      activity.remove();
     };
 
-    that.showError = function(fieldName) {
-      var field = that.form[fieldName];
-      return field.$invalid && (field.$touched || that.form.$submitted);
+    ctrl.showError = function(fieldName) {
+      var field = ctrl.form[fieldName];
+      return field.$invalid && (field.$touched || ctrl.form.$submitted);
     };
 
     initializeNewActivity();

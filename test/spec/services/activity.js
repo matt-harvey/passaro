@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: TimeLog', function () {
+describe('Service: Activity', function () {
 
   // load the service's module
   beforeEach(module('passaroApp'));
 
   // instantiate service
-  var TimeLog;
-  beforeEach(inject(function (_TimeLog_) {
-    TimeLog = _TimeLog_;
+  var Activity;
+  beforeEach(inject(function (_Activity_) {
+    Activity = _Activity_;
   }));
 
   it('should do something', function () {
-    expect(!!TimeLog).toBe(true);
+    expect(!!Activity).toBe(true);
   });
 
 });
