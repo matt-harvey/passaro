@@ -11,22 +11,13 @@ angular.module('passaroApp')
   .controller('ActivitiesCtrl', function($window, lodash, Activity) {
     var ctrl = this;
 
-    // TODO Tidy this.... especially the pagination stuff.
-
-    var initializeNewActivity = function() {
-      ctrl.newActivity = new Activity();
-    };
-
-    var resetForm = function() {
-      initializeNewActivity();
-      ctrl.form.$setPristine();
-      ctrl.form.$setUntouched();
-    };
-
+    // pagination state
     ctrl.shownActivities = [];
     ctrl.activitiesPerPage = 5;
+    ctrl.pagination = { current: 1 };
+    ctrl.numActivities = 0;
 
-    var getResultsPage = function(pageNumber) {
+    var loadPaginatedActivities = function(pageNumber) {
       Activity.find({
         selector: { name: { $gt: '' } },  // TODO I just want to say "all"...
         limit: ctrl.activitiesPerPage,
@@ -36,29 +27,25 @@ angular.module('passaroApp')
         ctrl.shownActivities = lodash.map(result.docs, function(doc) {
           return new Activity(doc);
         });
-        updateNumActivities();
-      });
-    };
-    var repaginate = function() {
-      getResultsPage(ctrl.pagination.current);
-    };
-    ctrl.pagination = { current: 1 };
-    ctrl.pageChanged = function(newPage) {
-      getResultsPage(newPage);
-    };
-    ctrl.numActivities = 0;
-    var updateNumActivities = function() {
-      Activity.info().then(function(result) {
-        ctrl.numActivities = result.doc_count;
+        // update the number of activities
+        Activity.info().then(function(result) {
+          ctrl.numActivities = result.doc_count;
+        });
       });
     };
 
     var reset = function() {
-      resetForm();
-      repaginate();
+      ctrl.newActivity = new Activity();
+      if (typeof ctrl.form !== 'undefined') {
+        ctrl.form.$setPristine();
+        ctrl.form.$setUntouched();
+      }
+      loadPaginatedActivities(ctrl.pagination.current);
     };
 
-    repaginate();
+    ctrl.pageChanged = function(newPage) {
+      loadPaginatedActivities(newPage);
+    };
 
     ctrl.addActivity = function() {
       if (ctrl.form.$valid) {
@@ -81,5 +68,5 @@ angular.module('passaroApp')
       return field.$invalid && (field.$touched || ctrl.form.$submitted);
     };
 
-    initializeNewActivity();
+    reset();
   });
