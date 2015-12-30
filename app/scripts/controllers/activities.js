@@ -34,9 +34,9 @@ angular.module('passaroApp')
         sort: ['name']
       }).then(function(result) {
         ctrl.shownActivities = lodash.map(result.docs, function(doc) {
-          updateNumActivities();
           return new Activity(doc);
         });
+        updateNumActivities();
       });
     };
     var repaginate = function() {
