@@ -71,8 +71,6 @@ angular.module('passaroApp')
         }
       };
 
-      database.getIndexes().then(function(result) { $log.info(result); });
-
       lodash.each(opts.indexes, function(index) {
         database.createIndex(index).catch(function(error) {
           // TODO Is there anything more useful we can do here? Should we throw?
