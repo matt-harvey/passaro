@@ -16,7 +16,7 @@
     <table class="table">
       <th>Name</th>
       <th></th>
-      <tr ng-repeat="activity in ctrl.activities()">
+      <tr dir-paginate="activity in ctrl.activities() | itemsPerPage: 10">
         <td>{{activity.name}}</td>
         <td>
           <button type="button" class="btn btn-xs btn-danger pull-right"
@@ -26,5 +26,6 @@
         </td>
       </tr>
     </table>
+    <dir-pagination-controls></dir-pagination-controls>
   </div><!-- panel-body -->
 </div>

@@ -10,6 +10,7 @@
  */
 angular
   .module('passaroApp', [
+    'angularUtils.directives.dirPagination',
     'ngAria',
     'ngMessages',
     'ngRoute',
