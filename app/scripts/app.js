@@ -18,8 +18,7 @@ angular
     'ngLodash',
     'pouchdb',
     'valdr'
-  ])
-  .config(function($routeProvider) {
+  ]).config(function($routeProvider) {
     $routeProvider
       .when('/stints', {
         templateUrl: '/views/stints.html'  // TODO Add controller

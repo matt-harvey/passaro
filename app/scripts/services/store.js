@@ -33,7 +33,8 @@ angular.module('passaroApp')
       var opts = lodash.merge({
         defaultAttributes: {},
         additionalInstanceMethods: {},
-        additionalClassMethods: {}
+        additionalClassMethods: {},
+        indexes: []
       }, options);
 
       if (typeof constructorRegistry[className] !== 'undefined') {
@@ -57,7 +58,7 @@ angular.module('passaroApp')
       var load = function() {
         if (typeof instanceCache === 'undefined') {
           database.allDocs({
-            'include_docs': true,  // quotes to appease linter
+            include_docs: true,
             descending: true
           }).then(function(result) {
             instanceCache = lodash.map(result.rows, function(row) {
@@ -70,6 +71,19 @@ angular.module('passaroApp')
         }
       };
 
+      database.getIndexes().then(function(result) { $log.info(result); });
+
+      lodash.each(opts.indexes, function(index) {
+        database.createIndex(index).catch(function(error) {
+          // TODO Is there anything more useful we can do here? Should we throw?
+          $log.error(error);
+        });
+      });
+
+      // FIXME The class and instance methods are a mix of different API styles. It should
+      // probably become a consistently promise-based API, mostly just become a thing wrapper
+      // around pouchdb-find where applicable.
+
       // wire up class methods for the new class
       lodash.merge(Konstructor, opts.additionalClassMethods, {
 
@@ -81,6 +95,10 @@ angular.module('passaroApp')
           return instanceCache;
         },
 
+        info: function() {
+          return database.info();
+        },
+
         /**
          * @param query e.g. { name: 'admin' }
          * @return true if an instance of class exists satisfying query, otherwise return false.
@@ -88,6 +106,13 @@ angular.module('passaroApp')
         exists: function(query) {
           // TODO This should use a proper PouchDB query.
           return typeof Konstructor.findWhere(query) !== 'undefined';
+        },
+
+        /**
+         * @param query conforming to pouchdb-find API
+         */
+        find: function(query) {
+          return database.find(query);
         },
 
         /**
@@ -130,7 +155,7 @@ angular.module('passaroApp')
               delete that._rev;
             }
           };
-          database.put(that).then(function(result) {
+          return database.put(that).then(function(result) {
             if (result.ok) {
               markStale();
             } else {
@@ -150,7 +175,7 @@ angular.module('passaroApp')
          */
         remove: function() {
           var that = this;
-          database.remove(that).then(function(result) {
+          return database.remove(that).then(function(result) {
             if (result.ok) {
               markStale();
             } else {

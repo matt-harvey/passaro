@@ -12,6 +12,13 @@ angular.module('passaroApp')
     return Store.registerClass('Activity', {
       defaultAttributes: {
         name: ''
-      }
+      },
+      indexes: [
+        {
+          index: {
+            fields: ['name']
+          }
+        }
+      ]
     });
   });

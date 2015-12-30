@@ -14,6 +14,8 @@ angular.module('passaroApp')
     validator.name = 'unique';
 
     validator.validate = function(value, args) {
+      // TODO Query using PouchDB instead of looking through the entire array of instances
+      // like this (though will require dealing with asynchronous API).
       var klass = Store.getClass(args.klass);
       var query = {};
       query[args.key] = value;

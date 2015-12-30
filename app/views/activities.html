@@ -16,7 +16,8 @@
     <table class="table">
       <th>Name</th>
       <th></th>
-      <tr dir-paginate="activity in ctrl.activities() | itemsPerPage: 10">
+      <tr dir-paginate="activity in ctrl.shownActivities | itemsPerPage: ctrl.activitiesPerPage"
+        total-items="ctrl.numActivities" current-page="ctrl.pagination.current">
         <td>{{activity.name}}</td>
         <td>
           <button type="button" class="btn btn-xs btn-danger pull-right"
@@ -26,6 +27,6 @@
         </td>
       </tr>
     </table>
-    <dir-pagination-controls></dir-pagination-controls>
+    <dir-pagination-controls on-page-change="ctrl.pageChanged(newPageNumber)"></dir-pagination-controls>
   </div><!-- panel-body -->
 </div>

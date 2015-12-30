@@ -12,7 +12,8 @@
     "angular-messages": "~1.4.8",
     "valdr": "~1.1.5",
     "components-font-awesome": "~4.5.0",
-    "angularUtils-pagination": "angular-utils-pagination#~0.9.3"
+    "angularUtils-pagination": "angular-utils-pagination#~0.9.3",
+    "pouchdb-find": "~0.8.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
