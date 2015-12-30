@@ -140,9 +140,6 @@ angular.module('passaroApp')
           var oldHasRev = ('_rev' in that);
           var oldId = that._id;
           var oldRev = that._rev;
-          if (!oldHasId) {
-            that._id = new Date().toISOString();
-          }
           var revert = function() {
             if (oldHasId) {
               that._id = oldId;
@@ -155,7 +152,7 @@ angular.module('passaroApp')
               delete that._rev;
             }
           };
-          return database.put(that).then(function(result) {
+          return database[oldHasId ? 'put' : 'post'](that).then(function(result) {
             if (result.ok) {
               markStale();
             } else {
