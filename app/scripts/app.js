@@ -16,8 +16,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngLodash',
-    'pouchdb',
-    'valdr'
+    'pouchdb'
   ]).config(function($routeProvider) {
     $routeProvider
       .when('/stints', {
@@ -34,10 +33,4 @@ angular
       .otherwise({
         redirectTo: '/stints'
       });
-  }).config(function(valdrProvider) {
-    valdrProvider.addValidator('uniquenessValidator');
-  }).config(function(valdrMessageProvider) {
-    valdrMessageProvider.setTemplate(
-      '<div class="help-block" role="alert">{{violation.message}}</div>'
-    );
   });

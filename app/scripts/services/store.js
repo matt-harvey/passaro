@@ -8,7 +8,7 @@
  * Service in the passaroApp.
  */
 angular.module('passaroApp')
-  .service('Store', function($log, lodash, pouchDB) {
+  .service('Store', function($log, $q, lodash, pouchDB, ValidateJS) {
     var service = this;
 
     var constructorRegistry = {};
@@ -35,6 +35,7 @@ angular.module('passaroApp')
      */
     service.registerClass = function(className, options) {
       var opts = lodash.merge({
+        constraints: {},
         defaultAttributes: {},
         additionalInstanceMethods: {},
         additionalClassMethods: {},
@@ -54,27 +55,6 @@ angular.module('passaroApp')
 
       var database = pouchDB(className);
 
-      var instanceCache;
-
-      var markStale = function() {
-        instanceCache = undefined;
-      };
-      var load = function() {
-        if (typeof instanceCache === 'undefined') {
-          database.allDocs({
-            include_docs: true,
-            descending: true
-          }).then(function(result) {
-            instanceCache = lodash.map(result.rows, function(row) {
-              return new Konstructor(row.doc);
-            });
-          }).catch(function(error) {
-            // TODO Is there anything more useful we can do here? Should we throw?
-            $log.error(error);
-          });
-        }
-      };
-
       lodash.each(opts.indexes, function(index) {
         database.createIndex(index).catch(function(error) {
           // TODO Is there anything more useful we can do here? Should we throw?
@@ -82,32 +62,13 @@ angular.module('passaroApp')
         });
       });
 
-      // FIXME The class and instance methods are a mix of different API styles. It should
-      // probably become a consistently promise-based API, mostly just become a thing wrapper
-      // around pouchdb-find where applicable.
-
       // wire up class methods for the new class
       lodash.merge(Konstructor, opts.additionalClassMethods, {
 
-        /**
-         * @return an array of all the instances of class
-         */
-        all: function() {
-          load();
-          return instanceCache;
-        },
+        constraints: opts.constraints,
 
         info: function() {
           return database.info();
-        },
-
-        /**
-         * @param query e.g. { name: 'admin' }
-         * @return true if an instance of class exists satisfying query, otherwise return false.
-         */
-        exists: function(query) {
-          // TODO This should use a proper PouchDB query.
-          return typeof Konstructor.findWhere(query) !== 'undefined';
         },
 
         /**
@@ -116,20 +77,14 @@ angular.module('passaroApp')
         find: function(query) {
           return database.find(query);
         },
-
-        /**
-         * @param query e.g. { name: 'admin }
-         * @return the first instance of class found that satisfies query, or undefined if no
-         *   such instance is found.
-         */
-        findWhere: function(query) {
-          // TODO This should use a proper PouchDB query.
-          return lodash.findWhere(Konstructor.all(), query);
-        }
       });
 
       // wire up instance methods for the new class
       lodash.merge(Konstructor.prototype, opts.additionalInstanceMethods, {
+
+        errorsFor: function(attribute) {
+          return this.errors ? (this.errors[attribute] || []) : [];
+        },
 
         /**
          * Save record to database. If _id matches that of existing record of this class, update
@@ -138,34 +93,37 @@ angular.module('passaroApp')
          */
         save: function() {
           var that = this;
-          var oldHasId = ('_id' in that);
-          var oldHasRev = ('_rev' in that);
-          var oldId = that._id;
-          var oldRev = that._rev;
-          var revert = function() {
-            if (oldHasId) {
-              that._id = oldId;
-            } else {
-              delete that._id;
-            }
-            if (oldHasRev) {
-              that._rev = oldRev;
-            } else {
-              delete that._rev;
-            }
-          };
-          return database[oldHasId ? 'put' : 'post'](that).then(function(result) {
-            if (result.ok) {
-              markStale();
-            } else {
+          return that.validate().catch(function(errors) {
+            that.errors = errors;
+            return $q.reject('Instance of ' + className + ' is invalid');
+          }).then(function() {
+            var oldHasId = ('_id' in that);
+            var oldHasRev = ('_rev' in that);
+            var oldId = that._id;
+            var oldRev = that._rev;
+            var revert = function() {
+              if (oldHasId) {
+                that._id = oldId;
+              } else {
+                delete that._id;
+              }
+              if (oldHasRev) {
+                that._rev = oldRev;
+              } else {
+                delete that._rev;
+              }
+            };
+            return database[oldHasId ? 'put' : 'post'](that).then(function(result) {
+              if (!result.ok) {
+                // TODO Is there anything more useful we can do here? Should we throw?
+                $log.error('Could not save record.');
+                revert();
+              }
+            }).catch(function(error) {
               // TODO Is there anything more useful we can do here? Should we throw?
-              $log.error('Could not save record.');
+              $log.error(error);
               revert();
-            }
-          }).catch(function(error) {
-            // TODO Is there anything more useful we can do here? Should we throw?
-            $log.error(error);
-            revert();
+            });
           });
         },
 
@@ -175,9 +133,7 @@ angular.module('passaroApp')
         remove: function() {
           var that = this;
           return database.remove(that).then(function(result) {
-            if (result.ok) {
-              markStale();
-            } else {
+            if (!result.ok) {
               // TODO Is there anything more useful we can do here? Should we throw?
               $log.error('Could not remove record.');
             }
@@ -185,7 +141,15 @@ angular.module('passaroApp')
             // TODO Is there anything more useful we can do here? Should we throw?
             $log.error(error);
           });
+        },
+
+        /**
+         * Asynchronously validate the record, returning a promise.
+         */
+        validate: function() {
+          return ValidateJS.validate.async(this, Konstructor.constraints);
         }
+
       });
 
       return Konstructor;

@@ -32,10 +32,9 @@ module.exports = function(config) {
       'bower_components/pouchdb/dist/pouchdb.js',
       'bower_components/angular-pouchdb/angular-pouchdb.js',
       'bower_components/angular-messages/angular-messages.js',
-      'bower_components/valdr/valdr.js',
-      'bower_components/valdr/valdr-message.js',
       'bower_components/angularUtils-pagination/dirPagination.js',
       'bower_components/pouchdb-find/dist/pouchdb.find.min.js',
+      'bower_components/validate/validate.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

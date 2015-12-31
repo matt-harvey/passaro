@@ -8,8 +8,16 @@
  * Factory in the passaroApp.
  */
 angular.module('passaroApp')
-  .factory('Activity', function(Store) {
+  .factory('Activity', function($q, lodash, Store) {
     return Store.registerClass('Activity', {
+      constraints: {
+        name: {
+          presence: true,
+          uniqueness: {
+            getClass: function() { return Store.getClass('Activity'); }
+          }
+        }
+      },
       defaultAttributes: {
         name: ''
       },
@@ -20,20 +28,5 @@ angular.module('passaroApp')
           }
         }
       ]
-    });
-  }).config(function(valdrProvider) {
-    valdrProvider.addConstraints({
-      Activity: {
-        name: {
-          required: {
-            message: 'Name is required'
-          },
-          unique: {
-            key: 'name',
-            message: 'There is already an activity with this name',
-            klass: 'Activity'
-          }
-        }
-      }
     });
   });

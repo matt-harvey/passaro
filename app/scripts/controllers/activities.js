@@ -8,7 +8,7 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('ActivitiesCtrl', function($window, lodash, Activity) {
+  .controller('ActivitiesCtrl', function($log, $window, lodash, Activity) {
     var ctrl = this;
 
     // pagination state
@@ -19,7 +19,7 @@ angular.module('passaroApp')
 
     var loadPaginatedActivities = function(pageNumber) {
       Activity.find({
-        selector: { name: { $gt: '' } },  // TODO I just want to say "all"...
+        selector: { name: { $gte: '' } },  // Get all activities. (Can this be done less hackily?)
         limit: ctrl.activitiesPerPage,
         skip: ctrl.activitiesPerPage * (pageNumber - 1),
         sort: ['name']
@@ -35,37 +35,20 @@ angular.module('passaroApp')
     };
 
     var reset = function() {
-      ctrl.newActivity = new Activity();
-      if (typeof ctrl.form !== 'undefined') {
-        ctrl.form.$setPristine();
-        ctrl.form.$setUntouched();
-      }
+      ctrl.activity = new Activity();
       loadPaginatedActivities(ctrl.pagination.current);
     };
 
-    ctrl.pageChanged = function(newPage) {
-      loadPaginatedActivities(newPage);
-    };
+    ctrl.pageChanged = loadPaginatedActivities;
 
     ctrl.addActivity = function() {
-      if (ctrl.form.$valid) {
-        ctrl.newActivity.save().then(function() {
-          reset();
-        });
-      }
+      ctrl.activity.save().then(reset).catch(lodash.noop);
     };
 
     ctrl.removeActivity = function(activity) {
       if ($window.confirm('Are you sure you want to delete the activity "' + activity.name + '"?')) {
-        activity.remove().then(function() {
-          reset();
-        });
+        activity.remove().then(reset);
       }
-    };
-
-    ctrl.showError = function(fieldName) {
-      var field = ctrl.form[fieldName];
-      return field.$invalid && (field.$touched || ctrl.form.$submitted);
     };
 
     reset();

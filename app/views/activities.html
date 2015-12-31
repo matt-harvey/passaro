@@ -1,14 +1,17 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <form role="form" name="ctrl.form" ng-submit="ctrl.addActivity()" novalidate
-      autocomplete="off" valdr-type="Activity">
-      <div valdr-form-group ng-class="{ 'has-error': ctrl.showError('name') }">
+      autocomplete="off">
+      <div ng-class="{ 'has-error': ctrl.activity.errorsFor('name').length !== 0 }">
         <div class="input-group">
-          <input type="text" name="name" class="form-control" ng-model="ctrl.newActivity.name">
+          <input type="text" name="name" class="form-control" ng-model="ctrl.activity.name">
           <div class="input-group-btn">
             <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
           </div><!-- input-group-btn -->
         </div><!-- input-group -->
+        <div ng-repeat="error in ctrl.activity.errorsFor('name')" class="help-block" role="alert">
+          <div>{{error}}</div>
+        </div>
       </div>
     </form>
   </div><!-- panel-body -->
