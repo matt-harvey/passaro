@@ -19,8 +19,10 @@ angular
     'pouchdb'
   ]).config(function($routeProvider) {
     $routeProvider
-      .when('/stints', {
-        templateUrl: '/views/stints.html'  // TODO Add controller
+      .when('/entries', {
+        templateUrl: '/views/entries.html',
+        controller: 'EntriesCtrl',
+        controllerAs: 'ctrl'
       })
       .when('/activities', {
         templateUrl: 'views/activities.html',
@@ -31,6 +33,6 @@ angular
         templateUrl: 'views/reports.html'  // TODO Add controller
       })
       .otherwise({
-        redirectTo: '/stints'
+        redirectTo: '/entries'
       });
   });

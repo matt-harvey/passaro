@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form role="form" name="ctrl.form" ng-submit="ctrl.addEntry()" novalidate
+      autocomplete="off">
+      <div ng-class="{ 'has-error': ctrl.entry.errorsFor('activityId').length !== 0 }">
+        <div class="input-group">
+          <input type="text" name="activityId" class="form-control" ng-model="ctrl.entry.activityId">
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
+          </div><!-- input-group-btn -->
+        </div><!-- input-group -->
+        <div ng-repeat="error in ctrl.entry.errorsFor('activityId')" class="help-block" role="alert">
+          <div>{{error}}</div>
+        </div>
+      </div>
+    </form>
+  </div><!-- panel-body -->
+  <div class="panel-body">
+    <table class="table">
+      <th>Activity ID</th>
+      <tr dir-paginate="entry in ctrl.shownEntries | itemsPerPage: ctrl.entriesPerPage"
+        total-items="ctrl.numEntries" current-page="ctrl.pagination.current">
+        <td>{{entry.activityId}}</td>
+      </tr>
+    </table>
+    <dir-pagination-controls on-page-change="ctrl.pageChanged(newPageNumber)"></dir-pagination-controls>
+  </div><!-- panel-body -->
+</div>

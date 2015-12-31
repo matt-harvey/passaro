@@ -14,7 +14,9 @@ angular.module('passaroApp')
         name: {
           presence: true,
           uniqueness: {
-            getClass: function() { return Store.getClass('Activity'); }
+            getClass: function() {
+              return Store.getClass('Activity');
+            }
           }
         }
       },
