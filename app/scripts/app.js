@@ -11,6 +11,7 @@
 angular
   .module('passaroApp', [
     'angularUtils.directives.dirPagination',
+    'angularMoment',
     'ngAria',
     'ngMessages',
     'ngRoute',

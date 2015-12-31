@@ -8,7 +8,7 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('ActivitiesCtrl', function($log, $window, lodash, Activity) {
+  .controller('ActivitiesCtrl', function($log, $window, lodash, moment, Activity, Entry) {
     var ctrl = this;
 
     // pagination state
@@ -49,6 +49,11 @@ angular.module('passaroApp')
       if ($window.confirm('Are you sure you want to delete the activity "' + activity.name + '"?')) {
         activity.remove().then(reset);
       }
+    };
+
+    ctrl.switchTo = function(activity) {
+      var entry = new Entry({ activityId: activity._id, startedAt: moment().toJSON() });
+      entry.save();
     };
 
     reset();

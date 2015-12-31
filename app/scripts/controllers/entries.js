@@ -8,7 +8,7 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('EntriesCtrl', function($log, lodash, Entry) {
+  .controller('EntriesCtrl', function($log, $q, lodash, moment, Entry) {
     // TODO A lot of code is similar to that in controllers/activities.js. Factor out the
     // shared stuff.
 
@@ -25,7 +25,7 @@ angular.module('passaroApp')
         selector: { startedAt: { $gte: '' } },  // Get all entries. (Can this be done less hackily?)
         limit: ctrl.entriesPerPage,
         skip: ctrl.entriesPerPage * (pageNumber - 1),
-        sort: ['startedAt']
+        sort: [{ startedAt: 'desc' }]
       }).then(function(result) {
         ctrl.shownEntries = lodash.map(result.docs, function(doc) {
           return new Entry(doc);
@@ -38,7 +38,6 @@ angular.module('passaroApp')
     };
 
     var reset = function() {
-      $log.info('DEBUG ctrl.entry'); $log.info(ctrl.entry);
       ctrl.entry = new Entry();
       loadPaginatedEntries(ctrl.pagination.current);
     };
@@ -46,9 +45,16 @@ angular.module('passaroApp')
     ctrl.pageChanged = loadPaginatedEntries;
 
     ctrl.addEntry = function() {
-      $log.info('DEBUG');
+      var oldHasStartedAt = ('startedAt' in ctrl.entry);
+      var oldStartedAt = ctrl.entry.startedAt;
+      ctrl.entry.startedAt = moment();
       ctrl.entry.save().then(reset).catch(function(error) {
-        $log.error(error);  // DEBUG
+        if (oldHasStartedAt) {
+          ctrl.entry.startedAt = oldStartedAt;
+        } else {
+          delete ctrl.entry.startedAt;
+        }
+        return $q.reject(error);
       });
     };
 

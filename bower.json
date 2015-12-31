@@ -13,7 +13,9 @@
     "components-font-awesome": "~4.5.0",
     "angularUtils-pagination": "angular-utils-pagination#~0.9.3",
     "pouchdb-find": "~0.8.0",
-    "validate": "validate.js#~0.9.0"
+    "validate": "validate.js#~0.9.0",
+    "angular-moment": "~0.10.3",
+    "moment": "~2.10.6"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
