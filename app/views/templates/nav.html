@@ -1,16 +1,13 @@
 <nav class="navbar navbar-inverse" role="navigation" ng-cloak>
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand"
-        ng-href="#{{navCtrl.rootItem.path}}">{{navCtrl.rootItem.title}}</a>
+      <a class="navbar-brand" ng-href="#{{navCtrl.rootItem.path}}">{{navCtrl.rootItem.title}}</a>
     </div>
 
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right" ng-repeat="item in navCtrl.items">
-        <li ng-class="{ active: navCtrl.isActive(item) }">
-          <a ng-href="#{{item.path}}">{{item.title}}</a>
-        </li>
-      </ul>
-    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li ng-repeat="item in navCtrl.items" ng-class="{ active: navCtrl.isActive(item) }">
+        <a ng-href="#{{item.path}}">{{item.title}}</a>
+      </li>
+    </ul>
   </div>
 </nav>

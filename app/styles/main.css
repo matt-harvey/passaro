@@ -94,5 +94,5 @@ body {
   display: none;
 }
 .has-error [valdr-message] {
-  display: inline; 
+  display: inline;
 }
