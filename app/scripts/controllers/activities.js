@@ -21,15 +21,15 @@ angular.module('passaroApp')
       Activity.find({
         selector: { name: { $gte: '' } },  // Get all activities. (Can this be done less hackily?)
         limit: ctrl.activitiesPerPage,
-        skip: ctrl.activitiesPerPage * (pageNumber - 1),
+        skip: ctrl.activitiesPerPage * (pageNumber - 1),  // TODO This is not performant.
         sort: ['name']
       }).then(function(result) {
         ctrl.shownActivities = lodash.map(result.docs, function(doc) {
           return new Activity(doc);
         });
-        return Activity.info();
+        return Activity.count();
       }).then(function(result) {
-        ctrl.numActivities = result.doc_count;
+        ctrl.numActivities = result;
         $scope.$apply();
       });
     };

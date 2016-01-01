@@ -65,6 +65,28 @@ angular.module('passaroApp')
       // wire up class methods for the new class
       lodash.merge(Konstructor, opts.additionalClassMethods, {
 
+        /**
+         * @return a promise of which the result is the number of persisted records of this class.
+         */
+        count: function() {
+          var num;
+          return database.info().then(function(result) {
+            // We start by counting all the documents...
+            num = result.doc_count;
+            return database.find({
+              // ...then we count how many are special ones, like design docs, where the id begins
+              // with an underscore. We will exclude these from the count.
+              selector: { _id: { $gte: '_', $lte: '_\uffff' } },
+              fields: []
+            });
+          }).then(function(result) {
+            // FIXME Ensure people can't save records with an ID beginning with an underscore.
+            // Also probably better we generate our own IDs after all, and give them all a
+            // standard prefix or something to make querying easier.
+            return num - result.docs.length;
+          });
+        },
+
         constraints: opts.constraints,
 
         info: function() {
