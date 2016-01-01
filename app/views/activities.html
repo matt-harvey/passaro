@@ -20,7 +20,7 @@
       <th>Name</th>
       <th></th>
       <tr dir-paginate="activity in ctrl.shownActivities | itemsPerPage: ctrl.activitiesPerPage"
-        total-items="ctrl.numActivities" current-page="ctrl.pagination.current">
+        total-items="ctrl.numActivities" current-page="ctrl.currentPage">
         <td>
           {{activity.name}}
         </td>

@@ -14,7 +14,7 @@ angular.module('passaroApp')
     // pagination state
     ctrl.shownActivities = [];
     ctrl.activitiesPerPage = 5;
-    ctrl.pagination = { current: 1 };
+    ctrl.currentPage = 1;
     ctrl.numActivities = 0;
 
     var loadPaginatedActivities = function(pageNumber) {
@@ -36,7 +36,7 @@ angular.module('passaroApp')
 
     var reset = function() {
       ctrl.activity = new Activity();
-      loadPaginatedActivities(ctrl.pagination.current);
+      loadPaginatedActivities(ctrl.currentPage);
     };
 
     ctrl.pageChanged = loadPaginatedActivities;

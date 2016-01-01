@@ -20,7 +20,7 @@
       <th>Activity ID</th><!-- FIXME Should show name not ID -->
       <th>Started at</th>
       <tr dir-paginate="entry in ctrl.shownEntries | itemsPerPage: ctrl.entriesPerPage"
-        total-items="ctrl.numEntries" current-page="ctrl.pagination.current">
+        total-items="ctrl.numEntries" current-page="ctrl.currentPage">
         <td>{{entry.activityId}}</td>
         <td>{{entry.startedAt}}</td>
       </tr>
