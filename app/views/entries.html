@@ -17,12 +17,12 @@
   </div><!-- panel-body -->
   <div class="panel-body">
     <table class="table">
-      <th>Activity ID</th><!-- FIXME Should show name not ID -->
+      <th>Activity</th>
       <th>Started at</th>
-      <tr dir-paginate="entry in ctrl.shownEntries | itemsPerPage: ctrl.entriesPerPage"
-        total-items="ctrl.numEntries" current-page="ctrl.currentPage">
-        <td>{{entry.activityId}}</td>
-        <td>{{entry.startedAt}}</td>
+      <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
+        total-items="ctrl.totalRows" current-page="ctrl.currentPage">
+        <td>{{row.activity.name}}</td>
+        <td>{{row.entry.startedAt}}</td>
       </tr>
     </table>
     <dir-pagination-controls boundary-links="true" on-page-change="ctrl.pageChanged(newPageNumber)">

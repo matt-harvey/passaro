@@ -28,8 +28,8 @@ angular.module('passaroApp')
      * @param options [object] an options object with the following keys:
      *   defaultAttributes: an object with attribute names and their defaults
      *   additionalInstanceMethods: an object with additional instance methods to be merged in
-     *   additionalClassMethods: an object with additional "class methods" to be merged in (these
-     *     will be attached as properties to the constructor)
+     *   additionalClassMethods: an object with additional "class methods" to be merged in
+     *     (these will be attached as properties to the constructor)
      *   indexes: an array of configuration objects each of which is passed to the pouchdb-find
      *     API to create an index
      */
