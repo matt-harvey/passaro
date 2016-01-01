@@ -8,7 +8,7 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('ActivitiesCtrl', function($log, $window, lodash, moment, Activity, Entry) {
+  .controller('ActivitiesCtrl', function($log, $scope, $window, lodash, moment, Activity, Entry) {
     var ctrl = this;
 
     // pagination state
@@ -27,10 +27,10 @@ angular.module('passaroApp')
         ctrl.shownActivities = lodash.map(result.docs, function(doc) {
           return new Activity(doc);
         });
-        // update the number of activities
-        Activity.info().then(function(result) {
-          ctrl.numActivities = result.doc_count;
-        });
+        return Activity.info();
+      }).then(function(result) {
+        ctrl.numActivities = result.doc_count;
+        $scope.$apply();
       });
     };
 

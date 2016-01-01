@@ -8,7 +8,7 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('EntriesCtrl', function($log, $q, lodash, moment, Entry) {
+  .controller('EntriesCtrl', function($log, $q, $scope, lodash, moment, Entry) {
     // TODO A lot of code is similar to that in controllers/activities.js. Factor out the
     // shared stuff.
 
@@ -30,10 +30,10 @@ angular.module('passaroApp')
         ctrl.shownEntries = lodash.map(result.docs, function(doc) {
           return new Entry(doc);
         });
-        // update the number of entries
-        Entry.info().then(function(result) {
-          ctrl.numEntries = result.doc_count;
-        });
+        return Entry.info();
+      }).then(function(result) {
+        ctrl.numEntries = result.doc_count;
+        $scope.$apply();
       });
     };
 
