@@ -8,7 +8,7 @@
  * Factory in the passaroApp.
  */
 angular.module('passaroApp')
-  .factory('Entry', function($log, $q, lodash, Activity, Store) {
+  .factory('Entry', function($q, lodash, moment, Activity, Store) {
     return Store.registerClass('Entry', {
       additionalInstanceMethods: {
         // TODO There should be a general "find one by id" method in Store.
@@ -23,20 +23,16 @@ angular.module('passaroApp')
           }).then(function(result) {
             return new Activity(result.docs[0]);
           });
-        },
-        startedAtMoment: function() {
-          return moment(this.startedAt);
         }
       },
       additionalClassMethods: {
         findMostRecent: function() {
           var Entry = this;
           return Entry.find({
-            selector: { startedAt: { $gt: '' } },
+            selector: { startedAt: { $gt: 0 } },
             sort: [{ startedAt: 'desc' }],
             limit: 1
           }).then(function(result) {
-            $log.info(result.docs);
             return new Entry(result.docs[0]);
           });
         }

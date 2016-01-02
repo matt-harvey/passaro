@@ -64,12 +64,12 @@ angular.module('passaroApp')
     };
     
     ctrl.stopActivity = function() {
-      var entry = new Entry({ startedAt: moment().toJSON() }); 
+      var entry = new Entry({ startedAt: moment().valueOf() }); 
       entry.save().then(reset);
     };
 
     ctrl.switchTo = function(activity) {
-      var entry = new Entry({ activityId: activity._id, startedAt: moment().toJSON() });
+      var entry = new Entry({ activityId: activity._id, startedAt: moment().valueOf() });
       entry.save().then(reset);
     };
 

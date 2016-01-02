@@ -23,7 +23,7 @@ angular.module('passaroApp')
 
     var loadPaginatedEntries = function(pageNumber) {
       Entry.find({
-        selector: { startedAt: { $gte: '' } },  // Get all entries. (Can this be done less hackily?)
+        selector: { startedAt: { $gte: 0 } },  // Get all entries. (Can this be done less hackily?)
         limit: ctrl.rowsPerPage,
         skip: ctrl.rowsPerPage * (pageNumber - 1),  // TODO This is not performant.
         sort: [{ startedAt: 'desc' }]
@@ -53,7 +53,7 @@ angular.module('passaroApp')
     ctrl.addEntry = function() {
       var oldHasStartedAt = ('startedAt' in ctrl.entry);
       var oldStartedAt = ctrl.entry.startedAt;
-      ctrl.entry.startedAt = moment();
+      ctrl.entry.startedAt = moment().valueOf();
       ctrl.entry.save().then(reset).catch(function(error) {
         if (oldHasStartedAt) {
           ctrl.entry.startedAt = oldStartedAt;
