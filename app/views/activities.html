@@ -9,7 +9,8 @@
             <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
           </div><!-- input-group-btn -->
         </div><!-- input-group -->
-        <div ng-repeat="error in ctrl.activity.errorsFor('name')" class="help-block" role="alert">
+        <div ng-repeat="error in ctrl.activity.errorsFor('name')" class="help-block"
+          role="alert">
           <div>{{error}}</div>
         </div>
       </div>
@@ -27,8 +28,14 @@
         <td>
           <div class="pull-right">
             <button type="button" class="btn btn-xs btn-success"
-              ng-click="ctrl.switchTo(activity)">
-              <i class="fa fa-play-circle"></i>
+              ng-click="ctrl.switchTo(activity)"
+              ng-show="!ctrl.isActive(activity)">
+              <i class="fa fa-play"></i>
+            </button>
+            <button type="button" class="btn btn-xs btn-warning"
+              ng-click="ctrl.stopActivity()"
+              ng-show="ctrl.isActive(activity)">
+              <i class="fa fa-stop"></i>
             </button>
             <button type="button" class="btn btn-xs btn-danger"
               ng-click="ctrl.removeActivity(activity)">

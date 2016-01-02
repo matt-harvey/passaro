@@ -8,7 +8,8 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('EntriesCtrl', function($log, $q, $scope, lodash, moment, Activity, Entry) {
+  .controller('EntriesCtrl', function($log, $q, $scope, $window, lodash, moment, Activity,
+    Entry) {
     // TODO A lot of code is similar to that in controllers/activities.js. Factor out the
     // shared stuff.
 
@@ -61,6 +62,12 @@ angular.module('passaroApp')
         }
         return $q.reject(error);
       });
+    };
+
+    ctrl.removeEntry = function(entry) {
+      if ($window.confirm('Are you sure you want to delete this entry?')) {
+        entry.remove().then(reset);
+      }
     };
 
     reset();

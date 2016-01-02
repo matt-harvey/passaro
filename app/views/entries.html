@@ -4,12 +4,14 @@
       autocomplete="off">
       <div ng-class="{ 'has-error': ctrl.entry.errorsFor('activityId').length !== 0 }">
         <div class="input-group">
-          <input type="text" name="activityId" class="form-control" ng-model="ctrl.entry.activityId">
+          <input type="text" name="activityId" class="form-control"
+            ng-model="ctrl.entry.activityId">
           <div class="input-group-btn">
             <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
           </div><!-- input-group-btn -->
         </div><!-- input-group -->
-        <div ng-repeat="error in ctrl.entry.errorsFor('activityId')" class="help-block" role="alert">
+        <div ng-repeat="error in ctrl.entry.errorsFor('activityId')" class="help-block"
+          role="alert">
           <div>{{error}}</div>
         </div>
       </div>
@@ -19,10 +21,19 @@
     <table class="table">
       <th>Activity</th>
       <th>Started at</th>
+      <th></th>
       <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
         total-items="ctrl.totalRows" current-page="ctrl.currentPage">
         <td>{{row.activity.name}}</td>
-        <td>{{row.entry.startedAt}}</td>
+        <td>{{row.entry.startedAtMoment() | amDateFormat: 'YYYY-MM-DD HH:mm'}}</td>
+        <td>
+          <div class="pull-right">
+            <button type="button" class="btn btn-xs btn-danger"
+              ng-click="ctrl.removeEntry(row.entry)">
+              <i class="fa fa-close"></i>
+            </button>
+          </div>
+        </td>
       </tr>
     </table>
     <dir-pagination-controls boundary-links="true" on-page-change="ctrl.pageChanged(newPageNumber)">

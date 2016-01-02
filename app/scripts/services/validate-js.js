@@ -36,9 +36,13 @@ angular.module('passaroApp')
     /**
      * Asynchronous validator to check for existence of the given attribute (key) as the _id of
      * a record in another data store. The other data store should be returned by the
-     * function passed to the "getClass" option.
+     * function passed to the "getClass" option. But if given attribute is not present
+     * then this validation always passes.
      */
     validate.validators.linked = function(value, options /* key, attributes */) {
+      if (typeof value === 'undefined' || value === '' || value === null) {
+        return $q.resolve();
+      }
       return options.getClass().find({
         selector: { _id: value },
         limit: 1
