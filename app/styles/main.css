@@ -96,3 +96,8 @@ body {
 .has-error [valdr-message] {
   display: inline;
 }
+
+/* tables */
+.ps-row-blank {
+  background-color: #f0f0f0;
+}

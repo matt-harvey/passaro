@@ -20,12 +20,29 @@
   <div class="panel-body">
     <table class="table">
       <th>Activity</th>
-      <th>Started at</th>
+      <th>Started</th>
+      <th>Ended</th>
+      <th>Duration</th>
       <th></th>
       <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
-        total-items="ctrl.totalRows" current-page="ctrl.currentPage">
-        <td>{{row.activity.name}}</td>
-        <td>{{row.entry.startedAt | amDateFormat: 'YYYY-MM-DD HH:mm'}}</td>
+        total-items="ctrl.totalRows" current-page="ctrl.currentPage"
+        ng-class="{ 'ps-row-blank': row.activity.isBlank() }">
+        <td ng-bind="row.activity"></td>
+        <td>
+          <span ng-show="!row.activity.isBlank()"
+            ng-bind="row.started | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
+          </span>
+        </td>
+        <td>
+          <span ng-show="!row.activity.isBlank()"
+            ng-bind="row.ended | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
+          </span>
+        </td>
+        <td>
+          <span ng-show="!row.activity.isBlank()"
+            ng-bind="(row.ended - row.started) | duration: { 'expanded': true }">
+          </span>
+        </td>
         <td>
           <div class="pull-right">
             <button type="button" class="btn btn-xs btn-danger"

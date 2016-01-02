@@ -10,6 +10,14 @@
 angular.module('passaroApp')
   .factory('Activity', function($q, lodash, Store) {
     return Store.registerClass('Activity', {
+      additionalInstanceMethods: {
+        isBlank: function() {
+          return this.name.length === 0;
+        },
+        toString: function() {
+          return this.name;
+        }
+      },
       constraints: {
         name: {
           presence: true,
