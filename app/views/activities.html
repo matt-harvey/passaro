@@ -4,9 +4,12 @@
       autocomplete="off">
       <div ng-class="{ 'has-error': ctrl.activity.errorsFor('name').length !== 0 }">
         <div class="input-group">
-          <input type="text" name="name" class="form-control" ng-model="ctrl.activity.name">
+          <input type="text" name="name" class="form-control" ng-model="ctrl.activity.name"
+            placeholder="Enter name of activity to add">
           <div class="input-group-btn">
-            <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
+            <button type="submit" class="btn btn-info">
+              Add
+            </button>
           </div><!-- input-group-btn -->
         </div><!-- input-group -->
         <div ng-repeat="error in ctrl.activity.errorsFor('name')" class="help-block"
@@ -34,7 +37,7 @@
           </td>
           <td>
             <div class="pull-right">
-              <button type="button" class="btn btn-xs btn-danger"
+              <button type="button" class="btn btn-xs btn-info"
                 ng-show="row.removable"
                 ng-click="ctrl.removeActivity(row)">
                 <i class="fa fa-close"></i>

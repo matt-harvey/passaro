@@ -8,7 +8,7 @@
             ng-model="ctrl.entry.activityName"
             placeholder="Enter activity to switch to, or blank to cease activity">
           <div class="input-group-btn">
-            <button type="submit" class="btn btn-success">
+            <button type="submit" class="btn btn-info">
               Switch
             </button>
           </div><!-- input-group-btn -->
@@ -52,7 +52,7 @@
               ng-bind="(row.ended - row.started) | duration: { 'expanded': true }">
             </span>
             <div class="pull-right">
-              <button type="button" class="btn btn-xs btn-danger"
+              <button type="button" class="btn btn-xs btn-info"
                 ng-click="ctrl.removeEntry(row)">
                 <i class="fa fa-close"></i>
               </button>
