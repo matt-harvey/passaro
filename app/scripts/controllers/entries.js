@@ -109,8 +109,14 @@ angular.module('passaroApp')
       });
     };
 
+    // TODO Do we also want to enable the user to add an entry in between existing
+    // ones?
     ctrl.removeEntry = function(entry) {
-      if ($window.confirm('Are you sure you want to delete this entry?')) {
+      // FIXME If this is the very first entry, then this message will be misleading.
+      if ($window.confirm(
+        'This stint will be deleted and the stint before it will be lengthened to fill the ' +
+        'resulting gap. Proceed?'
+      )) {
         entry.remove().then(reset);
       }
     };
