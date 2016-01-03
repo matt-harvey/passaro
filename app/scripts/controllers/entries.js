@@ -47,7 +47,7 @@ angular.module('passaroApp')
         });
         var displayedEntries = ctrl.retrievedEntries.slice(onFirstPage ? 0 : 1);
         ctrl.rows = lodash.map(displayedEntries, function(entry) {
-          return { entry: entry };
+          return { entry: entry, isVeryEarliest: false };
         });
         var rows = ctrl.rows;
         lodash.each(rows, function(row, index) {
@@ -69,8 +69,13 @@ angular.module('passaroApp')
           });
         });
         return Entry.count();
-      }).then(function(result) {
-        ctrl.totalRows = result;
+      }).then(function(count) {
+        var numPages = Math.ceil(count / ctrl.rowsPerPage);
+        var onLastPage = (ctrl.currentPage === numPages);
+        if (onLastPage) {
+          lodash.last(ctrl.rows).isVeryEarliest = true;
+        }
+        ctrl.totalRows = count;
         $scope.$apply();
         $interval.cancel(refreshCurrentEntryTime);
         $interval(refreshCurrentEntryTime, 100);
@@ -111,13 +116,15 @@ angular.module('passaroApp')
 
     // TODO Do we also want to enable the user to add an entry in between existing
     // ones?
-    ctrl.removeEntry = function(entry) {
-      // FIXME If this is the very first entry, then this message will be misleading.
-      if ($window.confirm(
-        'This stint will be deleted and the stint before it will be lengthened to fill the ' +
-        'resulting gap. Proceed?'
-      )) {
-        entry.remove().then(reset);
+    ctrl.removeEntry = function(row) {
+      var message = (
+        row.isVeryEarliest ?
+        'Are you sure you want to delete this stint?' :
+        'This stint will be deleted and the stint before it will be extended to fill the ' +
+          'resulting gap. Do you want to proceed?'
+      );
+      if ($window.confirm(message)) {
+        row.entry.remove().then(reset);
       }
     };
 
