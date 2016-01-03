@@ -18,8 +18,10 @@
   </div><!-- panel-body -->
   <div class="panel-body">
     <table class="table table-hover">
-      <th>Name</th>
-      <th></th>
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
       <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
         total-items="ctrl.totalRows" current-page="ctrl.currentPage">
         <td ng-click="ctrl.toggleActivity(row)">

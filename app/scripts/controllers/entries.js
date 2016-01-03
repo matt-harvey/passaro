@@ -21,11 +21,8 @@ angular.module('passaroApp')
     ctrl.rowsPerPage = 5;
     ctrl.currentPage = 1;
     ctrl.totalRows = 0;
-    
-    ctrl.numActivitiesLoaded = 0;
 
     var loadPaginatedEntries = function(pageNumber) {
-      ctrl.numActivitiesLoaded = 0;
       var onFirstPage = (ctrl.currentPage === 1);
       var numToSkip = (
         onFirstPage ?
@@ -67,10 +64,7 @@ angular.module('passaroApp')
             row.isActive = false;
             row.ended = rows[previousIndex].entry.startedAt;
           }
-          row.entry.findActivity().then(function(result) {
-            row.activity = result;
-            ++ctrl.numActivitiesLoaded;
-          });
+          row.entry.syncActivityName();
         });
         return Entry.count();
       }).then(function(count) {
@@ -86,10 +80,6 @@ angular.module('passaroApp')
       });
     };
 
-    ctrl.activitiesLoaded = function() {
-      return ctrl.numActivitiesLoaded === ctrl.rows.length;
-    };
-
     var refreshCurrentEntryTime = function() {
       if (ctrl.rows.length !== 0) {
         ctrl.rows[0].ended = (
@@ -101,8 +91,7 @@ angular.module('passaroApp')
     };
 
     var reset = function() {
-      ctrl.activityName = '';
-      ctrl.entry = new Entry();
+      ctrl.entry = new Entry({ activityName: '' });
       ctrl.formErrors = [];
       loadPaginatedEntries(ctrl.currentPage);
     };
@@ -114,17 +103,17 @@ angular.module('passaroApp')
       var oldStartedAt = ctrl.entry.startedAt;
       ctrl.entry.startedAt = moment().valueOf();
       Activity.find({
-        selector: { name: ctrl.activityName },
+        selector: { name: ctrl.entry.activityName },
         limit: 1,
         fields: ['_id']
       }).then(function(result) {
-        if (ctrl.activityName.length === 0) {
+        if (ctrl.entry.activityName.length === 0) {
           return ctrl.entry.save();
         } else if (result.docs.length === 0) {
           var message = 'There is no activity with this name. Do you want to create a new ' +
             'activity with this name and switch to that?';
           if ($window.confirm(message)) {
-            var newActivity = new Activity({ name: ctrl.activityName });
+            var newActivity = new Activity({ name: ctrl.entry.activityName });
             return newActivity.save().then(function(result) {
               ctrl.entry.activityId = result.id;
               return ctrl.entry.save();

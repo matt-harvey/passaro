@@ -56,7 +56,7 @@ angular.module('passaroApp')
     };
     
     var stopActivity = function() {
-      var entry = new Entry({ startedAt: moment().valueOf() }); 
+      var entry = new Entry({ activityName: '', startedAt: moment().valueOf() }); 
       entry.save().then(function() {
         ctrl.activeActivity = undefined;
         $scope.$digest();
@@ -64,7 +64,11 @@ angular.module('passaroApp')
     };
 
     var switchTo = function(row) {
-      var entry = new Entry({ activityId: row.activity._id, startedAt: moment().valueOf() });
+      var entry = new Entry({
+        activityId: row.activity._id,
+        activityName: row.activity.name,
+        startedAt: moment().valueOf()
+      });
       entry.save().then(function() {
         ctrl.activeActivity = row.activity;
         row.removable = false;

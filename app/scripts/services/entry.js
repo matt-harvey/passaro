@@ -23,6 +23,22 @@ angular.module('passaroApp')
           }).then(function(result) {
             return new Activity(result.docs[0]);
           });
+        },
+        // TODO There should happen automatically after loading an entry unless
+        // specified otherwise.
+        syncActivityName: function() {
+          var entry = this;
+          return entry.findActivity().then(function(activity) {
+            if (
+              (typeof activity === 'undefined' && entry.activityName) ||
+              (activity.name !== entry.activityName)
+            ) {
+              entry.activityName = activity.name;
+              return entry.save();
+            } else {
+              return $q.resolve('unchanged');
+            }
+          });
         }
       },
       additionalClassMethods: {

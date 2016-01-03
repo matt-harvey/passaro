@@ -4,8 +4,8 @@
       autocomplete="off">
       <div ng-class="{ 'has-error': ctrl.formErrors.length !== 0 }">
         <div class="input-group">
-          <input type="text" name="activityName" class="form-control"
-            ng-model="ctrl.activityName">
+          <input type="text" name="entry.activityName" class="form-control"
+            ng-model="ctrl.entry.activityName">
           <div class="input-group-btn">
             <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
           </div><!-- input-group-btn -->
@@ -17,30 +17,32 @@
       </div>
     </form>
   </div><!-- panel-body -->
-  <div class="panel-body" ng-show="ctrl.activitiesLoaded()"><!-- prevent flicker -->
+  <div class="panel-body">
     <table class="table">
-      <th>Activity</th>
-      <th>Started</th>
-      <th>Ended</th>
-      <th>Duration</th>
-      <th></th>
+      <tr>
+        <th>Activity</th>
+        <th class="col-md-2">Started</th>
+        <th class="col-md-2">Ended</th>
+        <th class="col-md-1">Duration</th>
+        <th class="col-md-1"></th>
+      </tr>
       <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
         total-items="ctrl.totalRows" current-page="ctrl.currentPage"
-        ng-class="{ 'ps-row-blank': row.activity.isBlank() }">
-        <td ng-bind="row.activity"></td>
+        ng-class="{ 'ps-row-blank': row.entry.activityName.length === 0 }">
+        <td ng-bind="row.entry.activityName"></td>
         <td>
-          <span ng-show="!row.activity.isBlank()"
+          <span ng-show="row.entry.activityName.length !== 0"
             ng-bind="row.started | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
           </span>
         </td>
         <td>
-          <span ng-show="!row.activity.isBlank()"
+          <span ng-show="row.entry.activityName.length !== 0"
             ng-class="{ 'ps-stint-active': row.isActive }"
             ng-bind="row.ended | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
           </span>
         </td>
         <td>
-          <span ng-show="!row.activity.isBlank()"
+          <span ng-show="!row.entry.activityName.length !== 0"
             ng-class="{ 'ps-stint-active': row.isActive }"
             ng-bind="(row.ended - row.started) | duration: { 'expanded': true }">
           </span>

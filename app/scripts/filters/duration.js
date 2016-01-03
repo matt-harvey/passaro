@@ -14,7 +14,7 @@ angular.module('passaroApp')
       var basic = moment.duration(milliseconds).format('hh:mm:ss', { trim: false });
       if (opts.expanded) {
         var hours = milliseconds / 1000 / 60 / 60;
-        return basic + ' (' + $filter('number')(hours, 1) + ' hours)';
+        return basic + ' (' + $filter('number')(hours, 1) + ' hrs)';
       }
       return basic;
     };
