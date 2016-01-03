@@ -5,9 +5,12 @@
       <div ng-class="{ 'has-error': ctrl.formErrors.length !== 0 }">
         <div class="input-group">
           <input type="text" name="entry.activityName" class="form-control"
-            ng-model="ctrl.entry.activityName">
+            ng-model="ctrl.entry.activityName"
+            placeholder="Enter activity to switch to, or blank to cease activity">
           <div class="input-group-btn">
-            <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
+            <button type="submit" class="btn btn-success">
+              Switch
+            </button>
           </div><!-- input-group-btn -->
         </div><!-- input-group -->
         <div ng-repeat="error in ctrl.formErrors" class="help-block"
