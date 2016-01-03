@@ -54,12 +54,14 @@ angular.module('passaroApp')
           var previousIndex = index - 1;
           row.started = row.entry.startedAt;
           if (previousIndex === -1) {
+            row.isActive = onFirstPage;
             row.ended = (
               onFirstPage ?
               moment().valueOf() :
               ctrl.retrievedEntries[0].startedAt
             );
           } else {
+            row.isActive = false;
             row.ended = rows[previousIndex].entry.startedAt;
           }
           row.entry.findActivity().then(function(result) {

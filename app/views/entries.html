@@ -35,11 +35,13 @@
         </td>
         <td>
           <span ng-show="!row.activity.isBlank()"
+            ng-class="{ 'ps-stint-active': row.isActive }"
             ng-bind="row.ended | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
           </span>
         </td>
         <td>
           <span ng-show="!row.activity.isBlank()"
+            ng-class="{ 'ps-stint-active': row.isActive }"
             ng-bind="(row.ended - row.started) | duration: { 'expanded': true }">
           </span>
         </td>
