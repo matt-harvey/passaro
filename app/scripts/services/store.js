@@ -137,14 +137,13 @@ angular.module('passaroApp')
             };
             return database[oldHasId ? 'put' : 'post'](that).then(function(result) {
               if (!result.ok) {
-                // TODO Is there anything more useful we can do here? Should we throw?
-                $log.error('Could not save record.');
                 revert();
+                return $q.reject('Could not save record.');
               }
+              return result;
             }).catch(function(error) {
-              // TODO Is there anything more useful we can do here? Should we throw?
-              $log.error(error);
               revert();
+              return $q.reject(error);
             });
           });
         },

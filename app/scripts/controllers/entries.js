@@ -93,9 +93,10 @@ angular.module('passaroApp')
     };
 
     var reset = function() {
+      ctrl.activityName = '';
       ctrl.entry = new Entry();
+      ctrl.formErrors = [];
       loadPaginatedEntries(ctrl.currentPage);
-      
     };
 
     ctrl.pageChanged = loadPaginatedEntries;
@@ -104,7 +105,30 @@ angular.module('passaroApp')
       var oldHasStartedAt = ('startedAt' in ctrl.entry);
       var oldStartedAt = ctrl.entry.startedAt;
       ctrl.entry.startedAt = moment().valueOf();
-      ctrl.entry.save().then(reset).catch(function(error) {
+      Activity.find({
+        selector: { name: ctrl.activityName },
+        limit: 1,
+        fields: ['_id']
+      }).then(function(result) {
+        if (ctrl.activityName.length === 0) {
+          return ctrl.entry.save();
+        } else if (result.docs.length === 0) {
+          var message = 'There is no activity with this name. Do you want to create a new ' +
+            'activity with this name and switch to that?';
+          if ($window.confirm(message)) {
+            var newActivity = new Activity({ name: ctrl.activityName });
+            return newActivity.save().then(function(result) {
+              ctrl.entry.activityId = result.id;
+              return ctrl.entry.save();
+            });
+          } else {
+            return $q.reject();
+          }
+        } else {
+          ctrl.entry.activityId = result.docs[0]._id;     
+          return ctrl.entry.save();
+        }
+      }).then(reset).catch(function(error) {
         if (oldHasStartedAt) {
           ctrl.entry.startedAt = oldStartedAt;
         } else {
