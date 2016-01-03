@@ -21,9 +21,12 @@
       <th>Name</th>
       <th></th>
       <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
-        total-items="ctrl.totalRows" current-page="ctrl.currentPage"
-        ng-class="{ 'ps-activity-active': ctrl.isActive(row) }">
-        <td ng-bind="row.activity" ng-click="ctrl.toggleActivity(row)"></td>
+        total-items="ctrl.totalRows" current-page="ctrl.currentPage">
+        <td ng-click="ctrl.toggleActivity(row)">
+          <span ng-bind="row.activity"></span>
+          <span ng-show="ctrl.isActive(row)" data-toggle="tooltip" title="currently active">*
+          </span>
+        </td>
         <td>
           <div class="pull-right">
             <!-- FIXME There is a lot of flicker when this is redrawn -->
