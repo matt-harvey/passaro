@@ -101,6 +101,7 @@ body {
 .ps-row-blank {
   background-color: #f0f0f0;
 }
+.ps-activity-active,
 .ps-stint-active {
   color: #4cae4c;
 }

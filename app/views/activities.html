@@ -17,24 +17,16 @@
     </form>
   </div><!-- panel-body -->
   <div class="panel-body">
-    <table class="table">
+    <table class="table table-hover">
       <th>Name</th>
       <th></th>
       <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
-        total-items="ctrl.totalRows" current-page="ctrl.currentPage">
-        <td ng-bind="row.activity"></td>
+        total-items="ctrl.totalRows" current-page="ctrl.currentPage"
+        ng-class="{ 'ps-activity-active': ctrl.isActive(row) }">
+        <td ng-bind="row.activity" ng-click="ctrl.toggleActivity(row)"></td>
         <td>
           <div class="pull-right">
-            <button type="button" class="btn btn-xs btn-success"
-              ng-click="ctrl.switchTo(row)"
-              ng-show="!ctrl.isActive(row)">
-              <i class="fa fa-play"></i>
-            </button>
-            <button type="button" class="btn btn-xs btn-warning"
-              ng-click="ctrl.stopActivity()"
-              ng-show="ctrl.isActive(row)">
-              <i class="fa fa-stop"></i>
-            </button>
+            <!-- FIXME There is a lot of flicker when this is redrawn -->
             <button type="button" class="btn btn-xs btn-danger"
               ng-show="row.removable"
               ng-click="ctrl.removeActivity(row)">

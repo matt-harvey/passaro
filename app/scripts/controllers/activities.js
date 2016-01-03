@@ -54,12 +54,30 @@ angular.module('passaroApp')
       ctrl.activity = new Activity();
       loadPaginatedActivities(ctrl.currentPage);
     };
+    
+    var stopActivity = function() {
+      var entry = new Entry({ startedAt: moment().valueOf() }); 
+      entry.save().then(reset);
+    };
+
+    var switchTo = function(row) {
+      var entry = new Entry({ activityId: row.activity._id, startedAt: moment().valueOf() });
+      entry.save().then(reset);
+    };
 
     ctrl.isActive = function(row) {
       return (
         typeof ctrl.activeActivity !== 'undefined' &&
         row.activity._id === ctrl.activeActivity._id
       );
+    };
+
+    ctrl.toggleActivity = function(row) {
+      if (ctrl.isActive(row)) {
+        stopActivity();
+      } else {
+        switchTo(row);
+      }
     };
 
     ctrl.pageChanged = loadPaginatedActivities;
@@ -73,16 +91,6 @@ angular.module('passaroApp')
         row.activity.name + '"?')) {
         row.activity.remove().then(reset);
       }
-    };
-    
-    ctrl.stopActivity = function() {
-      var entry = new Entry({ startedAt: moment().valueOf() }); 
-      entry.save().then(reset);
-    };
-
-    ctrl.switchTo = function(row) {
-      var entry = new Entry({ activityId: row.activity._id, startedAt: moment().valueOf() });
-      entry.save().then(reset);
     };
 
     reset();
