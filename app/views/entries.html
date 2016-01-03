@@ -19,43 +19,44 @@
   </div><!-- panel-body -->
   <div class="panel-body">
     <table class="table">
-      <tr>
-        <th>Activity</th>
-        <th class="col-md-2">Started</th>
-        <th class="col-md-2">Ended</th>
-        <th class="col-md-1">Duration</th>
-        <th class="col-md-1"></th>
-      </tr>
-      <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
-        total-items="ctrl.totalRows" current-page="ctrl.currentPage"
-        ng-class="{ 'ps-row-blank': row.entry.activityName.length === 0 }">
-        <td ng-bind="row.entry.activityName"></td>
-        <td>
-          <span ng-show="row.entry.activityName.length !== 0"
-            ng-bind="row.started | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
-          </span>
-        </td>
-        <td>
-          <span ng-show="row.entry.activityName.length !== 0"
-            ng-class="{ 'ps-stint-active': row.isActive }"
-            ng-bind="row.ended | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
-          </span>
-        </td>
-        <td>
-          <span ng-show="!row.entry.activityName.length !== 0"
-            ng-class="{ 'ps-stint-active': row.isActive }"
-            ng-bind="(row.ended - row.started) | duration: { 'expanded': true }">
-          </span>
-        </td>
-        <td>
-          <div class="pull-right">
-            <button type="button" class="btn btn-xs btn-danger"
-              ng-click="ctrl.removeEntry(row)">
-              <i class="fa fa-close"></i>
-            </button>
-          </div>
-        </td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th class="col-md-2">Started</th>
+          <th class="col-md-2">Ended</th>
+          <th class="col-md-2">Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
+          total-items="ctrl.totalRows" current-page="ctrl.currentPage"
+          ng-class="{ 'ps-row-blank': row.entry.activityName.length === 0 }">
+          <td ng-bind="row.entry.activityName"></td>
+          <td>
+            <span ng-show="row.entry.activityName.length !== 0"
+              ng-bind="row.started | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
+            </span>
+          </td>
+          <td>
+            <span ng-show="row.entry.activityName.length !== 0"
+              ng-class="{ 'ps-stint-active': row.isActive }"
+              ng-bind="row.ended | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
+            </span>
+          </td>
+          <td>
+            <span ng-show="row.entry.activityName.length !== 0"
+              ng-class="{ 'ps-stint-active': row.isActive }"
+              ng-bind="(row.ended - row.started) | duration: { 'expanded': true }">
+            </span>
+            <div class="pull-right">
+              <button type="button" class="btn btn-xs btn-danger"
+                ng-click="ctrl.removeEntry(row)">
+                <i class="fa fa-close"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
     <dir-pagination-controls boundary-links="true" on-page-change="ctrl.pageChanged(newPageNumber)">
     </dir-pagination-controls>
