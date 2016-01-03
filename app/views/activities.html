@@ -20,26 +20,25 @@
     <table class="table">
       <th>Name</th>
       <th></th>
-      <tr dir-paginate="activity in ctrl.shownActivities | itemsPerPage: ctrl.activitiesPerPage"
-        total-items="ctrl.numActivities" current-page="ctrl.currentPage">
-        <td>
-          {{activity.name}}
-        </td>
+      <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
+        total-items="ctrl.totalRows" current-page="ctrl.currentPage">
+        <td ng-bind="row.activity"></td>
         <td>
           <div class="pull-right">
             <button type="button" class="btn btn-xs btn-success"
-              ng-click="ctrl.switchTo(activity)"
-              ng-show="!ctrl.isActive(activity)">
+              ng-click="ctrl.switchTo(row)"
+              ng-show="!ctrl.isActive(row)">
               <i class="fa fa-play"></i>
             </button>
             <button type="button" class="btn btn-xs btn-warning"
               ng-click="ctrl.stopActivity()"
-              ng-show="ctrl.isActive(activity)">
+              ng-show="ctrl.isActive(row)">
               <i class="fa fa-stop"></i>
             </button>
             <button type="button" class="btn btn-xs btn-danger"
-              ng-click="ctrl.removeActivity(activity)">
-              <i class="fa fa-close"></i><!-- FIXME Need to prevent deletion if there are dependent entries. -->
+              ng-show="row.removable"
+              ng-click="ctrl.removeActivity(row)">
+              <i class="fa fa-close"></i>
             </button>
           </div>
         </td>
