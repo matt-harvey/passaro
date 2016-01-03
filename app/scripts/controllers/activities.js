@@ -13,7 +13,7 @@ angular.module('passaroApp')
 
     // pagination state
     ctrl.rows = [];
-    ctrl.rowsPerPage = 5;
+    ctrl.rowsPerPage = 10;
     ctrl.currentPage = 1;
     ctrl.totalRows = 0;
 
