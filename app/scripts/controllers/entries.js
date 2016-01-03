@@ -21,8 +21,11 @@ angular.module('passaroApp')
     ctrl.rowsPerPage = 5;
     ctrl.currentPage = 1;
     ctrl.totalRows = 0;
+    
+    ctrl.numActivitiesLoaded = 0;
 
     var loadPaginatedEntries = function(pageNumber) {
+      ctrl.numActivitiesLoaded = 0;
       var onFirstPage = (ctrl.currentPage === 1);
       var numToSkip = (
         onFirstPage ?
@@ -66,6 +69,7 @@ angular.module('passaroApp')
           }
           row.entry.findActivity().then(function(result) {
             row.activity = result;
+            ++ctrl.numActivitiesLoaded;
           });
         });
         return Entry.count();
@@ -80,6 +84,10 @@ angular.module('passaroApp')
         $interval.cancel(refreshCurrentEntryTime);
         $interval(refreshCurrentEntryTime, 100);
       });
+    };
+
+    ctrl.activitiesLoaded = function() {
+      return ctrl.numActivitiesLoaded === ctrl.rows.length;
     };
 
     var refreshCurrentEntryTime = function() {
