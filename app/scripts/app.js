@@ -17,7 +17,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngLodash',
-    'pouchdb'
+    'pouchdb',
+    'ui.bootstrap'
   ]).config(function($routeProvider) {
     $routeProvider
       .when('/entries', {
@@ -31,7 +32,9 @@ angular
         controllerAs: 'ctrl'
       })
       .when('/reports', {
-        templateUrl: 'views/reports.html'  // TODO Add controller
+        templateUrl: 'views/reports.html',
+        controller: 'ReportsCtrl',
+        controllerAs: 'ctrl'
       })
       .otherwise({
         redirectTo: '/entries'

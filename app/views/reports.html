@@ -1,1 +1,65 @@
-TODO (reports)
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form role="form" name="ctrl.form" ng-submit="ctrl.reset()" novalidate autocomplete="off"
+      class="form-inline">
+      <div class="row">
+        <div class="col-md-3">
+          <label for="start-date col-md-3">From</label>
+          <div class="input-group col-md-9">
+            <input type="text" class="form-control" ng-model="ctrl.startDate" id="min-date"
+              name="startDate" is-open="ctrl.startDatePopup.opened"
+              min-date="ctrl.minDate" max-date="ctrl.maxDate"
+              datepicker-options="ctrl.datePickerOptions"
+              ng-required="true" close-text="Close" placeholder="YYYY-MM-DD"
+              alt-input-formats="ctrl.altDateInputFormats"
+              uib-datepicker-popup="{{ctrl.datePickerFormat}}">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="ctrl.openStartDate()">
+                <i class="fa fa-calendar"></i>
+              </button>
+            </span>
+          </div><!-- input-group -->
+        </div><!-- col -->
+
+        <div class="col-md-3">
+          <label for="end-date col-md-3">To</label>
+          <div class="input-group col-md-9">
+            <input type="text" class="form-control" ng-model="ctrl.endDate"
+              name="endDate" is-open="ctrl.endDatePopup.opened"
+              min-date="ctrl.minDate" max-date="ctrl.maxDate"
+              datepicker-options="ctrl.datePickerOptions"
+              ng-required="true" close-text="Close" placeholder="YYYY-MM-DD"
+              alt-input-formats="ctrl.altDateInputFormats"
+              uib-datepicker-popup="{{ctrl.datePickerFormat}}">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="ctrl.openEndDate()">
+                <i class="fa fa-calendar"></i>
+              </button>
+            </span>
+          </div><!-- input-group -->
+        </div><!-- col -->
+
+        <div class="col-md-6">
+          <div class="col-md-11">
+            <label for="activity-name col-md-3">Activity</label>
+            <div class="input-group col-md-9">
+              <input type="text" id="activity-name" name="activityName"
+                class="form-control" ng-model="ctrl.activityName"
+                placeholder="Enter name or part thereof">
+            </div><!-- input-group -->
+          </div>
+
+          <div class="input-group col-md-1 pull-right">
+            <button type="button" class="btn btn-info col-md-12" ng-click="ctrl.generate()">
+              Go
+            </button>
+          </div><!-- input-group -->
+        </div><!-- col -->
+      </div><!-- row -->
+    </form>
+  </div><!-- panel-body -->
+  
+  <div class="panel-body">
+    <!-- FIXME Render the actual report in here. -->
+  </div><!-- panel-body -->
+</div><!-- panel -->

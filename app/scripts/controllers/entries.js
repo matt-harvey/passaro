@@ -36,6 +36,8 @@ angular.module('passaroApp')
         // we need to see an additional entry to get end time of top row
         ctrl.rowsPerPage + 1  
       );
+      // TODO Move logic for retrieving Entries into Service as we will want to reuse
+      // much of this on reports page.
       Entry.find({
         selector: { startedAt: { $gte: 0 } },  // Get all. (Can this be done less hackily?)
         limit: limit,

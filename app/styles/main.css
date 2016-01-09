@@ -96,6 +96,9 @@ body {
 .has-error [valdr-message] {
   display: inline;
 }
+.form-inline label {
+  margin-right: 0.75em;
+}
 
 /* tables */
 .ps-stint-active {
