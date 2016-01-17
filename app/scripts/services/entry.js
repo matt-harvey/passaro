@@ -24,22 +24,6 @@ angular.module('passaroApp')
             return new Activity(result.docs[0]);
           });
         },
-        // TODO There should happen automatically after loading an entry unless
-        // specified otherwise.
-        syncActivityName: function() {
-          var entry = this;
-          return entry.findActivity().then(function(activity) {
-            if (
-              (typeof activity === 'undefined' && entry.activityName) ||
-              (activity.name !== entry.activityName)
-            ) {
-              entry.activityName = activity.name;
-              return entry.save();
-            } else {
-              return $q.resolve('unchanged');
-            }
-          });
-        }
       },
       additionalClassMethods: {
         findMostRecent: function() {
@@ -52,6 +36,26 @@ angular.module('passaroApp')
             return new Entry(result.docs[0]);
           });
         }
+      },
+      afterFind: function(result) {
+        var Entry = this;
+        var retrievedEntries = lodash.map(result.docs, function(doc) {
+          return new Entry(doc);
+        });
+        lodash.each(retrievedEntries, function(entry) {
+          entry.findActivity().then(function(activity) {
+            if (
+              (typeof activity === 'undefined' && entry.activityName) ||
+              (activity.name !== entry.activityName)
+            ) {
+              entry.activityName = activity.name;
+              return entry.save();
+            } else {
+              return $q.resolve('unchanged');
+            }
+          });
+        });
+        return result;
       },
       constraints: {
         activityId: {

@@ -64,7 +64,6 @@ angular.module('passaroApp')
             row.isActive = false;
             row.ended = rows[previousIndex].entry.startedAt;
           }
-          row.entry.syncActivityName();
         });
         return Entry.count();
       }).then(function(count) {
