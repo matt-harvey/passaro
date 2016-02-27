@@ -33,7 +33,8 @@
           total-items="ctrl.totalRows" current-page="ctrl.currentPage">
           <td ng-click="ctrl.toggleActivity(row)">
             <span ng-bind="row.activity"></span>
-            <span ng-show="ctrl.isActive(row)" data-toggle="tooltip" title="currently active">*
+            <span ng-show="ctrl.isActive(row)" data-toggle="tooltip"
+              title="currently active">*
             </span>
           </td>
           <td>

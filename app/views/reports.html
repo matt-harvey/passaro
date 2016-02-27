@@ -61,5 +61,19 @@
   
   <div class="panel-body">
     <!-- FIXME Render the actual report in here. -->
+    <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in ctrl.reportItems">
+          <td>{{item.activityName}}</td>
+          <td>{{item.duration}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div><!-- panel-body -->
 </div><!-- panel -->

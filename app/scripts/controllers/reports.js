@@ -8,7 +8,7 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('ReportsCtrl', function(moment) {
+  .controller('ReportsCtrl', function(moment, Report, $scope) {
     var ctrl = this;
 
     // TODO Date pickers should be in a directive.
@@ -28,6 +28,7 @@ angular.module('passaroApp')
     };
     ctrl.startDatePopup = { opened: false };
     ctrl.endDatePopup = { opened: false };
+    ctrl.reportItems = [];
     
     ctrl.openStartDate = function() {
       ctrl.startDatePopup.opened = true;
@@ -38,5 +39,9 @@ angular.module('passaroApp')
     ctrl.generate = function() {
       var startTimeMs = moment(ctrl.startDate).startOf('day').valueOf();
       var endTimeMs = moment(ctrl.endDate).endOf('day').valueOf(); 
+      Report.generate(ctrl.activityName, startTimeMs, endTimeMs).then(function(reportItems) {
+        ctrl.reportItems = reportItems;
+        $scope.$apply();
+      });
     };
   });
