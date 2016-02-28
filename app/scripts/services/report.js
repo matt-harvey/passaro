@@ -8,7 +8,7 @@
  * Service in the passaroApp.
  */
 angular.module('passaroApp')
-  .service('Report', function(lodash, Entry) {
+  .service('Report', function(lodash, moment, Entry) {
     var service = this;
 
     /**
@@ -19,20 +19,28 @@ angular.module('passaroApp')
      *   ]
      */
     service.generate = function(activityName, startTimeMs, endTimeMs) {
-      
       var activityNameRegex = new RegExp(activityName);
       var activitiesMap = {};
-      var previousEntry;
+      var previousEntry = { activityName: '', startedAt: startTimeMs };
       
       return Entry.find({
         selector: { startedAt: { $gte: 0 } },  // Get all. (Can this be done less hackily?)
         sort: [{ startedAt: 'asc' }]
       }).then(function(result) {
+        result.docs.push({ activityName: '', startedAt: endTimeMs });
         lodash.each(result.docs, function(entry/*, index*/) {
-          var entryActivityName = entry.activityName;
-          if (entryActivityName && activityNameRegex.test(entryActivityName)) {
-            var previousTotal = (activitiesMap[entryActivityName] || 0);
-            activitiesMap[entryActivityName] = previousTotal + 1;  // FIXME put duration.
+          var previousTotal, stintDuration;
+          var stintActivityName = previousEntry.activityName;
+          var stintBegins = Math.max(previousEntry.startedAt, startTimeMs);
+          var stintEnds = Math.min(entry.startedAt, endTimeMs);
+          if (
+            stintActivityName &&
+            (stintEnds >= startTimeMs) && (stintBegins <= endTimeMs) &&
+            activityNameRegex.test(stintActivityName)
+          ) {
+            previousTotal = (activitiesMap[stintActivityName] || 0);
+            stintDuration = stintEnds - stintBegins;
+            activitiesMap[stintActivityName] = previousTotal + stintDuration;
           }
           previousEntry = entry;
         });

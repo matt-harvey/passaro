@@ -70,8 +70,8 @@
       </thead>
       <tbody>
         <tr ng-repeat="item in ctrl.reportItems">
-          <td>{{item.activityName}}</td>
-          <td>{{item.duration}}</td>
+          <td ng-bind="item.activityName"></td>
+          <td ng-bind="item.duration | duration: { 'expanded': true }"></td>
         </tr>
       </tbody>
     </table>

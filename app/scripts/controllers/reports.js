@@ -37,8 +37,11 @@ angular.module('passaroApp')
       ctrl.endDatePopup.opened = true;
     };
     ctrl.generate = function() {
-      var startTimeMs = moment(ctrl.startDate).startOf('day').valueOf();
-      var endTimeMs = moment(ctrl.endDate).endOf('day').valueOf(); 
+      var startTimeMs = (ctrl.startDate ? moment(ctrl.startDate).startOf('day').valueOf() :
+        Number.MIN_VALUE);
+      var now = moment().valueOf();
+      var endTimeMs = (ctrl.endDate ? Math.min(moment(ctrl.endDate).endOf('day').valueOf(), 
+        now) : now);
       Report.generate(ctrl.activityName, startTimeMs, endTimeMs).then(function(reportItems) {
         ctrl.reportItems = reportItems;
         $scope.$apply();
