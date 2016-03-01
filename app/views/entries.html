@@ -52,8 +52,8 @@
               ng-bind="(row.ended - row.started) | duration: { 'expanded': true }">
             </span>
             <div class="pull-right">
-              <button type="button" class="btn btn-xs btn-info"
-                ng-click="ctrl.removeEntry(row)">
+              <button type="button" class="btn btn-xs btn-info" data-toggle="tooltip"
+                title="click to remove" ng-click="ctrl.removeEntry(row)">
                 <i class="fa fa-close"></i>
               </button>
             </div>

@@ -31,7 +31,8 @@
       <tbody>
         <tr dir-paginate="row in ctrl.rows | itemsPerPage: ctrl.rowsPerPage"
           total-items="ctrl.totalRows" current-page="ctrl.currentPage">
-          <td ng-click="ctrl.toggleActivity(row)">
+          <td ng-click="ctrl.toggleActivity(row)" data-toggle="tooltip"
+            title="click to toggle">
             <span ng-bind="row.activity"></span>
             <span ng-show="ctrl.isActive(row)" data-toggle="tooltip"
               title="currently active">*
@@ -40,8 +41,8 @@
           <td>
             <div class="pull-right">
               <button type="button" class="btn btn-xs btn-info"
-                ng-show="row.removable"
-                ng-click="ctrl.removeActivity(row)">
+                data-toggle="tooltip" title="click to delete"
+                ng-show="row.removable" ng-click="ctrl.removeActivity(row)">
                 <i class="fa fa-close"></i>
               </button>
             </div>
