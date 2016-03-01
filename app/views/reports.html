@@ -24,6 +24,8 @@
         <div class="col-md-3">
           <label for="end-date col-md-3">To</label>
           <div class="input-group col-md-9">
+            <!-- TODO This duplicates much of the date picker code above and should
+              probably be a custom directive. -->
             <input type="text" class="form-control" ng-model="ctrl.endDate"
               name="endDate" is-open="ctrl.endDatePopup.opened"
               min-date="ctrl.minDate" max-date="ctrl.maxDate"
@@ -43,6 +45,7 @@
           <div class="col-md-11">
             <label for="activity-name col-md-3">Activity</label>
             <div class="input-group col-md-9">
+              <!-- TODO Provide option for exact match. -->
               <input type="text" id="activity-name" name="activityName"
                 class="form-control" ng-model="ctrl.activityName"
                 placeholder="Enter name or part thereof">

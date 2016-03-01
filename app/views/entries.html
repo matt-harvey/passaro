@@ -4,6 +4,7 @@
       autocomplete="off">
       <div ng-class="{ 'has-error': ctrl.formErrors.length !== 0 }">
         <div class="input-group">
+          <!-- TODO Make this an autocompleter. -->
           <input type="text" name="entry.activityName" class="form-control"
             ng-model="ctrl.entry.activityName"
             placeholder="Enter activity to switch to, or blank to cease activity">
