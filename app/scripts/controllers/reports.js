@@ -8,15 +8,16 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('ReportsCtrl', function(moment, Report, $scope) {
+  .controller('ReportsCtrl', function(moment, lodash, MultiSync, Report, $scope) {
     var ctrl = this;
 
     // TODO Date pickers should be in a directive.
 
     var today = new Date();
-    ctrl.startDate = today;
-    ctrl.endDate = today;
-    ctrl.activityName = '';
+
+    MultiSync.connect($scope, Report, ctrl, ['startDate', 'endDate', 'activityName',
+      'reportItems']);
+
     ctrl.minDate = moment(today).subtract(100, 'year').startOf('year').toDate();
     ctrl.maxDate = moment(today).add(1, 'year').endOf('year').toDate();
     ctrl.altDateInputFormats = [];
@@ -28,7 +29,6 @@ angular.module('passaroApp')
     };
     ctrl.startDatePopup = { opened: false };
     ctrl.endDatePopup = { opened: false };
-    ctrl.reportItems = [];
     
     ctrl.openStartDate = function() {
       ctrl.startDatePopup.opened = true;
