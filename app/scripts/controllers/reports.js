@@ -15,8 +15,12 @@ angular.module('passaroApp')
 
     var today = new Date();
 
-    MultiSync.connect($scope, Report, ctrl, ['startDate', 'endDate', 'activityName',
-      'reportItems']);
+    MultiSync.connect($scope, 'ReportsCtrl', ctrl, {
+      startDate: today,
+      endDate: today,
+      activityName: '',
+      reportItems: []
+    });
 
     ctrl.minDate = moment(today).subtract(100, 'year').startOf('year').toDate();
     ctrl.maxDate = moment(today).add(1, 'year').endOf('year').toDate();

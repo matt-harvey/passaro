@@ -10,15 +10,6 @@
 angular.module('passaroApp')
   .service('Report', function(lodash, moment, Entry) {
     var service = this;
-    var today = new Date();
-
-    // Currently filtered start date, end date and activity name and report
-    // items; stored on service so we retain these between page views. If we ever
-    // have multiple views using Report, this pattern will need to change.
-    service.startDate = today;
-    service.endDate = today; 
-    service.activityName = '';
-    service.reportItems = [];
 
     /**
      * @return Report data as an array of objects 
