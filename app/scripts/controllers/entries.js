@@ -9,18 +9,20 @@
  */
 angular.module('passaroApp')
   .controller('EntriesCtrl', function($log, $interval, $q, $scope, $window, lodash, moment,
-    Activity, Entry) {
+    Activity, Entry, MultiSync) {
     // TODO A lot of code is similar to that in controllers/activities.js. Factor out the
     // shared stuff.
 
     var ctrl = this;
 
-    // pagination state
-    ctrl.retrievedEntries = [];
-    ctrl.rows = [];
-    ctrl.rowsPerPage = 10;
-    ctrl.currentPage = 1;
-    ctrl.totalRows = 0;
+    // pagination state - use MultiSync to remember between page visits.
+    MultiSync.connect($scope, 'EntriesCtrl', ctrl, {
+      retrievedEntries: [],
+      rows: [],
+      rowsPerPage: 10,
+      currentPage: 1,
+      totalRows: 0
+    });
 
     var loadPaginatedEntries = function(pageNumber) {
       var onFirstPage = (ctrl.currentPage === 1);

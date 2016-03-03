@@ -8,14 +8,17 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('ActivitiesCtrl', function($log, $scope, $window, lodash, moment, Activity, Entry) {
+  .controller('ActivitiesCtrl', function($log, $scope, $window, lodash, moment, Activity,
+    Entry, MultiSync) {
     var ctrl = this;
 
-    // pagination state
-    ctrl.rows = [];
-    ctrl.rowsPerPage = 10;
-    ctrl.currentPage = 1;
-    ctrl.totalRows = 0;
+    // pagination state - use MultiSync to remember between page visits.
+    MultiSync.connect($scope, 'ActivitiesCtrl', ctrl, {
+      rows: [],
+      rowsPerPage: 10,
+      currentPage: 1,
+      totalRows: 0
+    });
 
     var loadPaginatedActivities = function(pageNumber) {
       Activity.find({
