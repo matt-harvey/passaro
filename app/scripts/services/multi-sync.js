@@ -8,7 +8,7 @@
  * Service in the passaroApp.
  */
 angular.module('passaroApp')
-  // TODO MuliSync is no longer a good name for this Service.
+  // TODO MultiSync is no longer a good name for this Service.
   .service('MultiSync', function(lodash) {
     var service = this;
     var registers = {};
