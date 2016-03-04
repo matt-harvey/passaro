@@ -15,12 +15,14 @@ angular.module('passaroApp')
 
     var today = new Date();
 
-    MultiSync.connect($scope, 'ReportsCtrl', ctrl, {
+    var defaults = {
       startDate: today,
       endDate: today,
       activityName: '',
       reportItems: []
-    });
+    };
+
+    MultiSync.connect($scope, 'ReportsCtrl', ctrl, defaults);
 
     ctrl.minDate = moment(today).subtract(100, 'year').startOf('year').toDate();
     ctrl.maxDate = moment(today).add(1, 'year').endOf('year').toDate();
@@ -50,5 +52,9 @@ angular.module('passaroApp')
         ctrl.reportItems = reportItems;
         $scope.$apply();
       });
+    };
+    ctrl.clear = function() {
+      ctrl.startDate = ctrl.endDate = ctrl.activityName = '';
+      ctrl.reportItems = [];
     };
   });
