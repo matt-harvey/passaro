@@ -1,12 +1,13 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <form role="form" name="ctrl.form" ng-submit="ctrl.reset()" novalidate autocomplete="off"
-      class="form-inline">
+      class="form-horizontal">
       <div class="row">
-        <div class="col-md-3">
-          <label for="start-date col-md-3">From</label>
-          <div class="input-group col-md-9">
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <div class="input-group separate-vertically">
+            <span class="input-group-addon" id="start-date-addon">From</span>
             <input type="text" class="form-control" ng-model="ctrl.startDate" id="min-date"
+              aria-describedby="start-date-addon"
               name="startDate" is-open="ctrl.startDatePopup.opened"
               min-date="ctrl.minDate" max-date="ctrl.maxDate"
               datepicker-options="ctrl.datePickerOptions"
@@ -18,15 +19,14 @@
                 <i class="fa fa-calendar"></i>
               </button>
             </span>
-          </div><!-- input-group -->
+          </div>
         </div><!-- col -->
 
-        <div class="col-md-3">
-          <label for="end-date col-md-3">To</label>
-          <div class="input-group col-md-9">
-            <!-- TODO This duplicates much of the date picker code above and should
-              probably be a custom directive. -->
-            <input type="text" class="form-control" ng-model="ctrl.endDate"
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <div class="input-group separate-vertically">
+            <span class="input-group-addon" id="end-date-addon">To</span>
+            <input type="text" class="form-control" ng-model="ctrl.endDate" id="max-date"
+              aria-describedby="end-date-addon"
               name="endDate" is-open="ctrl.endDatePopup.opened"
               min-date="ctrl.minDate" max-date="ctrl.maxDate"
               datepicker-options="ctrl.datePickerOptions"
@@ -38,32 +38,30 @@
                 <i class="fa fa-calendar"></i>
               </button>
             </span>
-          </div><!-- input-group -->
-        </div><!-- col -->
-
-        <div class="col-md-6">
-          <div class="col-md-9">
-            <label for="activity-name col-md-3">Activity</label>
-            <div class="input-group col-md-9">
-              <!-- TODO Provide option for exact match. -->
-              <input type="text" id="activity-name" name="activityName"
-                class="form-control" ng-model="ctrl.activityName"
-                placeholder="Enter name or part thereof">
-            </div><!-- input-group -->
           </div>
-
-          <div class="input-group col-md-1 pull-left">
-            <button type="button" class="btn btn-info col-md-12" ng-click="ctrl.generate()">
-              Generate
-            </button>
-          </div><!-- input-group -->
-
-          <div class="input-group col-md-1 pull-right">
-            <button type="button" class="btn col-md-12" ng-click="ctrl.clear()">
-              Clear
-            </button>
-          </div><!-- input-group -->
         </div><!-- col -->
+
+        <div class="col-lg-6 col-md-4 col-sm-12">
+          <div class="input-group separate-vertically">
+            <span class="input-group-addon" id="activity-name-addon">Activity</span>
+            <input type="text" id="activity-name" name="activityName"
+              aria-describedby="activity-name-addon" class="form-control"
+              ng-model="ctrl.activityName" placeholder="Enter name, or part thereof">
+          </div>
+        </div><!-- col -->
+
+        <div class="col-lg-1 col-md-6 col-sm-6">
+          <button type="button" class="btn separate-vertically" ng-click="ctrl.clear()">
+            Clear
+          </button>
+        </div>
+
+        <div class="col-lg-1 col-md-6 col-sm-6">
+          <button type="button" class="btn btn-info pull-right separate-vertically"
+            ng-click="ctrl.generate()">
+            Generate
+          </button>
+        </div>
       </div><!-- row -->
     </form>
   </div><!-- panel-body -->

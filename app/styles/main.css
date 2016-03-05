@@ -99,6 +99,9 @@ body {
 .form-inline label {
   margin-right: 0.75em;
 }
+.separate-vertically {
+  margin-top: 0.5em;
+}
 
 /* tables */
 .ps-stint-active {
