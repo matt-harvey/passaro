@@ -40,13 +40,13 @@
           <td ng-bind="row.entry.activityName"></td>
           <td>
             <span ng-show="row.entry.activityName.length !== 0"
-              ng-bind="row.started | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
+              ng-bind="row.started | amDateFormat: 'YYYY-MM DD HH:mm:ss'">
             </span>
           </td>
           <td>
             <span ng-show="row.entry.activityName.length !== 0"
               ng-class="{ 'ps-stint-active': row.isActive }"
-              ng-bind="row.ended | amDateFormat: 'YYYY-MM-DDTHH:mm:ss'">
+              ng-bind="row.ended | amDateFormat: 'YYYY-MM-DD HH:mm:ss'">
             </span>
           </td>
           <td>
