@@ -35,7 +35,6 @@ angular.module('passaroApp')
      */
     service.registerClass = function(className, options) {
       var opts = lodash.merge({
-        afterFind: lodash.noop,
         constraints: {},
         defaultAttributes: {},
         additionalInstanceMethods: {},
@@ -95,13 +94,11 @@ angular.module('passaroApp')
         },
 
         /**
-         * @param query conforming to pouchdb-find API, after which the function passed
-         *   to afterFind option on class registration (if any) will be run with the
-         *   query result passed as argument.
+         * @param query conforming to pouchdb-find API
          * @return a promise wrapping the query result
          */
         find: function(query) {
-          return database.find(query).then(this.afterFind);
+          return database.find(query);
         },
       });
 
