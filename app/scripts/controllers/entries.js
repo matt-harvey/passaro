@@ -14,12 +14,12 @@ angular.module('passaroApp')
     // shared stuff.
 
     var ctrl = this;
+    ctrl.rows = [];
+    ctrl.retrievedEntries = [];
+    ctrl.rowsPerPage = 10;
 
     // pagination state - use MultiSync to remember between page visits.
     MultiSync.connect($scope, 'EntriesCtrl', ctrl, {
-      retrievedEntries: [],
-      rows: [],
-      rowsPerPage: 10,
       currentPage: 1,
       totalRows: 0
     });
