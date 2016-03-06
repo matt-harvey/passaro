@@ -8,7 +8,7 @@
  * Controller of the passaroApp
  */
 angular.module('passaroApp')
-  .controller('ReportsCtrl', function(moment, lodash, MultiSync, Report, $scope) {
+  .controller('ReportsCtrl', function(moment, MultiSync, Report, $scope) {
     var ctrl = this;
 
     // TODO Date pickers should be in a directive.

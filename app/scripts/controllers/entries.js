@@ -152,5 +152,23 @@ angular.module('passaroApp')
       }
     };
 
+    ctrl.sourceActivityName = function(query, syncResults, asyncResults) {
+      Activity.find({
+        selector: { name: { $gte: '' } },  // Get all activities. TODO Make nicer.
+        sort: ['name']
+      }).then(function(result) {
+        var regex = new RegExp(query);
+        var results = lodash.chain(result.docs)
+          .filter(function(activity) {
+            return regex.test(activity.name);
+          })
+          .map(function(activity) {
+            return activity.name;
+          })
+          .value();
+        return asyncResults(results);
+      });
+    };
+
     reset();
   });
