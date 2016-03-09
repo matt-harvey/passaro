@@ -42,7 +42,7 @@
             <div class="pull-right">
               <button type="button" class="btn btn-xs btn-info"
                 data-toggle="tooltip" title="click to delete"
-                ng-show="row.removable" ng-click="ctrl.removeActivity(row)">
+                ng-class="{invisible: !row.removable}" ng-click="ctrl.removeActivity(row)">
                 <i class="fa fa-close"></i>
               </button>
             </div>

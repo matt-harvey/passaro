@@ -31,6 +31,16 @@ angular.module('passaroApp')
         ctrl.rows = lodash.map(result.docs, function(doc) {
           return { activity: new Activity(doc), removable: false };
         });
+        return Activity.count();
+      }).then(function(count) {
+        ctrl.totalRows = count;
+        return Entry.findMostRecent();
+      }).then(function(entry) {
+        return entry.findActivity();
+      }).then(function(activity) {
+        ctrl.activeActivity = activity;
+        $scope.$apply();
+
         lodash.each(ctrl.rows, function(row) {
           Entry.find({
             selector: { activityId: row.activity._id },
@@ -42,15 +52,6 @@ angular.module('passaroApp')
             }
           });
         });
-        return Activity.count();
-      }).then(function(count) {
-        ctrl.totalRows = count;
-        return Entry.findMostRecent();
-      }).then(function(entry) {
-        return entry.findActivity();
-      }).then(function(activity) {
-        ctrl.activeActivity = activity;
-        $scope.$apply();
       });
     };
 
