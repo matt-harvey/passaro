@@ -16,7 +16,8 @@ angular.module('passaroApp')
     that.items = [
       { path: '/entries', title: 'Stints' },
       { path: '/activities', title: 'Activities' },
-      { path: '/reports', title: 'Reports' }
+      { path: '/reports', title: 'Reports' },
+      { path: '/about', title: 'About' }
     ];
 
     that.isActive = function(item) {

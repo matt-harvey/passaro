@@ -1,0 +1,57 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <p>
+      I wrote Passaro as a "toy project" to help me learn about the
+      <a href="https://angularjs.org/">AngularJS</a> framework and single page
+      web applications (SPAs). <b>It is not intended for production use</b>. You can use it
+      if you want&mdash;but do so at your own risk. I might make breaking changes
+      at any point, or I might take it down entirely. You might lose all your data
+      with no warning; it might not be recorded properly in the first place; or it
+      might become corrupted, inaccurate or unreliable. Be warned!
+    </p>
+    <p>
+      Passaro uses <a href="http://pouchdb.com">PouchDB</a> to store user data
+      locally. PouchDB delegates to IndexedDB, or to WebSQL if IndexedDB is not
+      available. While PouchDB has the ability to sync data to a server,
+      Passaro does not use this capability; user data is stored entirely on the
+      user's machine, and is not sent anywhere else.
+    </p>
+    <p>
+      Passaro is a time-tracking application. It allows you to record the
+      amount of time you spend on different activities over time.  Each distinct
+      time period spent on a particular activity is called a "stint". Stints can be
+      viewed on the <a ng-href="/#/stints">Stints</a> page. You can record a
+      switch from one activity to another by populating the field on that page,
+      next to the "Switch" button, with the name of the activity you are switching
+      to&mdash;or leaving it blank to record a cessation of recorded activity&mdash;
+      and hitting the button.
+    </p>
+    <p>
+      The activities are listed on the <a ng-href="/#/activities">Activities</a> page.
+      Activities for which no stint has been recorded can be deleted using the cross
+      to the right; but once a stint has been recorded against a given activity, it can
+      no longer be deleted. A new activity can be created using the form at the top
+      of the Activities page. (Note that creating a new activity from the Activities page
+      will not by itself result in a "switch" being recorded to that activity.) You can also
+      create a new activity from the Stints page by entering an activity name that
+      does not already exist and hitting "Switch"; you will be asked to confirm that
+      you want to create and switch to the new activity.
+    </p>
+    <p>
+      If you are on the Activities page and click the name of one of the Activities
+      in the table, this causes a switch to that activity to be recorded. The currently
+      active activity will be shown with an asterisk (*) beside it. If you click on
+      the currently active activity, this will result in a cessation of recorded activity.
+    </p>
+    <p>
+      The <a href="/#/reports">Reports</a> page allows you to generate reports summarising
+      the total amount of time spent on different activities. It can be filtered by
+      activity name and/or date.
+    </p>
+    <p>
+      <em>P&aacute;ssaro</em> means "bird" in Portuguese. This has no semantic
+      relevance to the application. I just liked the sound of it, and thought it vaguely
+      suggested the passage of time.
+    </p>
+  </div><!-- panel-body -->
+</div><!-- panel -->
