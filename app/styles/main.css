@@ -88,6 +88,14 @@ body {
   border-radius: 0;
 }
 
+/* warning */
+.ps-warning {
+  background-color: #f0f0da;
+}
+.ps-warning-intense {
+  color: #aa0000;
+}
+
 /* forms */
 
 [valdr-message] {
