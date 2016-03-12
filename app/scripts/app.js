@@ -22,7 +22,7 @@ angular
   ]).config(function($routeProvider) {
     $routeProvider
       .when('/entries', {
-        templateUrl: '/views/entries.html',
+        templateUrl: 'views/entries.html',
         controller: 'EntriesCtrl',
         controllerAs: 'ctrl'
       })
