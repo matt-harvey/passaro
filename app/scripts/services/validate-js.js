@@ -11,6 +11,10 @@ angular.module('passaroApp')
   .factory('ValidateJS', function($q, $window) {
     var validate = $window.validate;
 
+    // Override validate.Promise to use a constructor that is compatible with $q promises;
+    // this avoids problems on Opera, Android browser and possible others.
+    validate.Promise = $q;
+
     /**
      * Asynchronous validator to check for uniqueness of the given attribute (key)
      * against a given data store. As a workaround to avoid a circular dependency between
