@@ -105,10 +105,18 @@ angular.module('passaroApp')
       var oldHasStartedAt = ('startedAt' in ctrl.entry);
       var oldStartedAt = ctrl.entry.startedAt;
       ctrl.entry.startedAt = moment().valueOf();
-      Activity.find({
-        selector: { name: ctrl.entry.activityName },
-        limit: 1,
-        fields: ['_id']
+
+      Entry.findMostRecent().then(function(mostRecentEntry) {
+        if (ctrl.entry.activityName === mostRecentEntry.activityName) {
+          var active = (mostRecentEntry.activityName.length !== 0);
+          ctrl.formErrors[0] = (active ? 'Already active' : 'Already inactive');
+          return $q.reject();
+        }
+        return Activity.find({
+          selector: { name: ctrl.entry.activityName },
+          limit: 1,
+          fields: ['_id']
+        });
       }).then(function(result) {
         if (ctrl.entry.activityName.length === 0) {
           return ctrl.entry.save();
