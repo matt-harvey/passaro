@@ -90,10 +90,10 @@ body {
 
 /* warning */
 .ps-warning {
-  background-color: #f0f0da;
+  background-color: #ffffee;
 }
-.ps-warning-intense {
-  color: #aa0000;
+.ps-warning-button-wrapper {
+  margin: 0.75em 1.25em 0 0;
 }
 
 /* forms */
