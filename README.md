@@ -14,9 +14,7 @@ Running `grunt test` will run the unit tests with karma.
 ## Deployment
 
 Passaro is hosted within my personal\_web project. So to deploy passaro, you need to
-deploy personal\_web.
-
-First, `grunt build` passaro. Then copy the contents of the dist/ directory of
-passaro into the src/projects/play/passaro/ directory within the personal\_web
-project. Then go into the personal\_web project and publish and build personal\_web
-as per the instructions for that project.
+deploy personal\_web. To do this, first `grunt build` passaro. Then once build, go to
+personal\_web, build that project, then do what is needed to make sure the built
+passaro distribution ends up in the right place when you're ready to rsync personal\_web
+up to production.
