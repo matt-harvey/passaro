@@ -64,7 +64,6 @@ angular.module('passaroApp')
       var entry = new Entry({ activityName: '', startedAt: moment().valueOf() }); 
       entry.save().then(function() {
         ctrl.activeActivity = undefined;
-        $scope.$digest();
       });
     };
 
@@ -77,7 +76,6 @@ angular.module('passaroApp')
       entry.save().then(function() {
         ctrl.activeActivity = row.activity;
         row.removable = false;
-        $scope.$digest();
       });
     };
 
