@@ -17,7 +17,5 @@ describe('Controller: ActivitiesCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(ActivitiesCtrl.awesomeThings.length).toBe(3);
-  });
+  // TODO tests...
 });

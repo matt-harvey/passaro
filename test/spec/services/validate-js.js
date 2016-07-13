@@ -11,8 +11,6 @@ describe('Service: ValidateJS', function () {
     ValidateJS = _ValidateJS_;
   }));
 
-  it('should do something', function () {
-    expect(!!ValidateJS).toBe(true);
-  });
+  // TODO tests...
 
 });

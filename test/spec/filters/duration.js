@@ -11,9 +11,6 @@ describe('Filter: duration', function () {
     duration = $filter('duration');
   }));
 
-  it('should return the input prefixed with "duration filter:"', function () {
-    var text = 'angularjs';
-    expect(duration(text)).toBe('duration filter: ' + text);
-  });
+  // TODO tests...
 
 });

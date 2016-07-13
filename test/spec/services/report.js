@@ -11,8 +11,6 @@ describe('Service: Report', function () {
     Report = _Report_;
   }));
 
-  it('should do something', function () {
-    expect(!!Report).toBe(true);
-  });
+  // TODO tests...
 
 });

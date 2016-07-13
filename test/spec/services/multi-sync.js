@@ -11,8 +11,6 @@ describe('Service: MultiSync', function () {
     MultiSync = _MultiSync_;
   }));
 
-  it('should do something', function () {
-    expect(!!MultiSync).toBe(true);
-  });
+  // TODO tests...
 
 });

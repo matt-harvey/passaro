@@ -11,8 +11,6 @@ describe('Service: Entry', function () {
     Entry = _Entry_;
   }));
 
-  it('should do something', function () {
-    expect(!!Entry).toBe(true);
-  });
+  // TODO tests...
 
 });
