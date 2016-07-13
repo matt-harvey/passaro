@@ -11,6 +11,7 @@
 angular.module('passaroApp')
   .filter('duration', function($filter, moment) {
     return function(milliseconds, opts) {
+      opts = (opts || { expanded: false });
       var basic = moment.duration(milliseconds).format('hh:mm:ss', { trim: false });
       if (opts.expanded) {
         var hours = milliseconds / 1000 / 60 / 60;
