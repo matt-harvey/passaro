@@ -49,6 +49,7 @@ angular.module('passaroApp')
           }).then(function(result) {
             if (result.docs.length === 0) {
               row.removable = true;
+              $scope.$apply();
             }
           });
         });
